@@ -14,6 +14,9 @@ import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+const backLinkClass =
+  "inline-flex h-10 cursor-pointer items-center rounded-xl border border-slate-300 bg-slate-100/70 px-3.5 text-sm font-semibold text-slate-700 shadow-[4px_4px_10px_rgba(148,163,184,0.2),-3px_-3px_8px_rgba(255,255,255,0.85)] transition-colors hover:bg-slate-100";
+
 export default async function EditSubscriptionPage({
   params
 }: {
@@ -29,15 +32,15 @@ export default async function EditSubscriptionPage({
   }
 
   return (
-    <main className="container py-8">
-      <div className="mb-6 flex items-center justify-between">
+    <main className="container py-8 md:py-10">
+      <div className="clay-panel mb-6 flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold tracking-tight">Edit Subscription</h1>
-        <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
+        <Link href="/" className={backLinkClass}>
           Back to dashboard
         </Link>
       </div>
 
-      <Card className="glass-panel mb-5">
+      <Card className="mb-5">
         <CardHeader>
           <CardTitle className="text-xl">{subscription.name}</CardTitle>
         </CardHeader>
@@ -57,7 +60,7 @@ export default async function EditSubscriptionPage({
         </CardContent>
       </Card>
 
-      <Card className="glass-panel">
+      <Card>
         <CardHeader>
           <CardTitle className="text-xl">Subscription details</CardTitle>
         </CardHeader>

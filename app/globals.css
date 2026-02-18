@@ -3,27 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --font-space-grotesk: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
-  --font-jetbrains-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular",
-    "Menlo", "Monaco", monospace;
-  --background: 228 37% 8%;
-  --foreground: 180 40% 98%;
-  --card: 228 32% 12%;
-  --card-foreground: 180 40% 98%;
-  --primary: 186 100% 50%;
-  --primary-foreground: 228 37% 8%;
-  --secondary: 312 100% 59%;
-  --secondary-foreground: 228 37% 8%;
-  --muted: 225 20% 20%;
-  --muted-foreground: 220 15% 72%;
-  --accent: 312 100% 59%;
-  --accent-foreground: 228 37% 8%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 180 40% 98%;
-  --border: 225 20% 28%;
-  --input: 225 20% 28%;
-  --ring: 186 100% 50%;
-  --radius: 0.75rem;
+  --font-space-grotesk: "Plus Jakarta Sans", "Nunito", "Avenir Next", sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", "Menlo",
+    "Monaco", monospace;
+  --background: 213 40% 93%;
+  --foreground: 220 32% 20%;
+  --card: 210 42% 95%;
+  --card-foreground: 220 32% 20%;
+  --primary: 221 78% 59%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 24 88% 72%;
+  --secondary-foreground: 220 32% 20%;
+  --muted: 214 32% 88%;
+  --muted-foreground: 217 20% 40%;
+  --accent: 160 48% 64%;
+  --accent-foreground: 220 32% 20%;
+  --destructive: 0 76% 62%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 30% 80%;
+  --input: 214 30% 80%;
+  --ring: 221 78% 59%;
+  --radius: 1.25rem;
 }
 
 @layer base {
@@ -34,22 +34,31 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(
-        circle at top left,
-        rgba(0, 245, 255, 0.15),
-        transparent 42%
-      ),
-      radial-gradient(
-        circle at top right,
-        rgba(255, 43, 214, 0.15),
-        transparent 45%
-      );
+      radial-gradient(circle at top left, rgba(96, 165, 250, 0.26), transparent 38%),
+      radial-gradient(circle at top right, rgba(251, 191, 36, 0.18), transparent 42%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(241, 245, 249, 0.4));
     background-attachment: fixed;
   }
 }
 
 @layer utilities {
-  .glass-panel {
-    @apply border border-border/70 bg-card/50 backdrop-blur-md;
+  .clay-surface {
+    @apply rounded-3xl border border-white/70;
+    background: linear-gradient(145deg, rgba(248, 250, 252, 0.92), rgba(226, 232, 240, 0.85));
+    box-shadow:
+      12px 12px 26px rgba(148, 163, 184, 0.28),
+      -10px -10px 24px rgba(255, 255, 255, 0.9);
+  }
+
+  .clay-inset {
+    @apply rounded-2xl border border-white/70;
+    background: linear-gradient(145deg, rgba(241, 245, 249, 0.85), rgba(226, 232, 240, 0.8));
+    box-shadow:
+      inset 6px 6px 10px rgba(148, 163, 184, 0.26),
+      inset -5px -5px 9px rgba(255, 255, 255, 0.88);
+  }
+
+  .clay-panel {
+    @apply clay-surface p-6;
   }
 }

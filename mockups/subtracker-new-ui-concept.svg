@@ -1,0 +1,148 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020617"/>
+      <stop offset="1" stop-color="#0B1220"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 120) rotate(30) scale(360 260)">
+      <stop stop-color="#22D3EE" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1360 120) rotate(150) scale(340 240)">
+      <stop stop-color="#4ADE80" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#4ADE80" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cardStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#334155"/>
+      <stop offset="1" stop-color="#1E293B"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#glow1)"/>
+  <rect width="1600" height="1000" fill="url(#glow2)"/>
+
+  <rect x="36" y="28" width="1528" height="944" rx="24" fill="#0F172A" fill-opacity="0.65" stroke="url(#cardStroke)"/>
+
+  <rect x="70" y="60" width="1460" height="70" rx="16" fill="#111C31" stroke="#273449"/>
+  <text x="100" y="103" fill="#E2E8F0" font-size="28" font-family="Inter, Segoe UI, sans-serif" font-weight="700">Subtracker</text>
+  <rect x="270" y="78" width="380" height="34" rx="10" fill="#0B1528" stroke="#334155"/>
+  <text x="290" y="100" fill="#64748B" font-size="14" font-family="Inter, Segoe UI, sans-serif">Search subscription...</text>
+  <rect x="1365" y="76" width="135" height="38" rx="10" fill="#22C55E"/>
+  <text x="1400" y="100" fill="#022C22" font-size="14" font-family="Inter, Segoe UI, sans-serif" font-weight="700">+ Add New</text>
+
+  <text x="74" y="175" fill="#F8FAFC" font-size="34" font-family="Inter, Segoe UI, sans-serif" font-weight="700">Dashboard Overview</text>
+  <text x="74" y="202" fill="#94A3B8" font-size="15" font-family="Inter, Segoe UI, sans-serif">Track monthly cost, due reminders and billing trend in one place.</text>
+
+  <g>
+    <rect x="70" y="228" width="350" height="118" rx="16" fill="#101B2F" stroke="#26364D"/>
+    <text x="95" y="260" fill="#94A3B8" font-size="14" font-family="Inter, Segoe UI, sans-serif">Monthly Total (VND)</text>
+    <text x="95" y="306" fill="#22D3EE" font-size="34" font-family="Inter, Segoe UI, sans-serif" font-weight="700">2,845,000</text>
+    <circle cx="386" cy="258" r="7" fill="#22D3EE"/>
+  </g>
+  <g>
+    <rect x="438" y="228" width="350" height="118" rx="16" fill="#101B2F" stroke="#26364D"/>
+    <text x="463" y="260" fill="#94A3B8" font-size="14" font-family="Inter, Segoe UI, sans-serif">Overdue</text>
+    <text x="463" y="306" fill="#F87171" font-size="34" font-family="Inter, Segoe UI, sans-serif" font-weight="700">2</text>
+    <circle cx="754" cy="258" r="7" fill="#F87171"/>
+  </g>
+  <g>
+    <rect x="806" y="228" width="350" height="118" rx="16" fill="#101B2F" stroke="#26364D"/>
+    <text x="831" y="260" fill="#94A3B8" font-size="14" font-family="Inter, Segoe UI, sans-serif">Due Today</text>
+    <text x="831" y="306" fill="#FBBF24" font-size="34" font-family="Inter, Segoe UI, sans-serif" font-weight="700">1</text>
+    <circle cx="1122" cy="258" r="7" fill="#FBBF24"/>
+  </g>
+  <g>
+    <rect x="1174" y="228" width="356" height="118" rx="16" fill="#101B2F" stroke="#26364D"/>
+    <text x="1199" y="260" fill="#94A3B8" font-size="14" font-family="Inter, Segoe UI, sans-serif">Upcoming 7 Days</text>
+    <text x="1199" y="306" fill="#4ADE80" font-size="34" font-family="Inter, Segoe UI, sans-serif" font-weight="700">5</text>
+    <circle cx="1498" cy="258" r="7" fill="#4ADE80"/>
+  </g>
+
+  <rect x="70" y="372" width="640" height="254" rx="16" fill="#101B2F" stroke="#26364D"/>
+  <text x="95" y="406" fill="#F1F5F9" font-size="20" font-family="Inter, Segoe UI, sans-serif" font-weight="700">Reminders</text>
+  <text x="95" y="429" fill="#94A3B8" font-size="13" font-family="Inter, Segoe UI, sans-serif">Overdue, today and tomorrow bills</text>
+
+  <rect x="95" y="446" width="590" height="46" rx="10" fill="#0C1629" stroke="#25344A"/>
+  <text x="112" y="474" fill="#E2E8F0" font-size="14" font-family="Inter, Segoe UI, sans-serif">Netflix Premium</text>
+  <rect x="257" y="456" width="76" height="26" rx="13" fill="#3F1D24"/>
+  <text x="278" y="473" fill="#FCA5A5" font-size="12" font-family="Inter, Segoe UI, sans-serif">Overdue</text>
+  <text x="530" y="474" fill="#94A3B8" font-size="13" font-family="Inter, Segoe UI, sans-serif">17 Feb • 260,000 VND</text>
+
+  <rect x="95" y="500" width="590" height="46" rx="10" fill="#0C1629" stroke="#25344A"/>
+  <text x="112" y="528" fill="#E2E8F0" font-size="14" font-family="Inter, Segoe UI, sans-serif">Figma Pro</text>
+  <rect x="217" y="510" width="72" height="26" rx="13" fill="#3E3416"/>
+  <text x="239" y="527" fill="#FCD34D" font-size="12" font-family="Inter, Segoe UI, sans-serif">Today</text>
+  <text x="540" y="528" fill="#94A3B8" font-size="13" font-family="Inter, Segoe UI, sans-serif">18 Feb • 15 USD</text>
+
+  <rect x="95" y="554" width="590" height="46" rx="10" fill="#0C1629" stroke="#25344A"/>
+  <text x="112" y="582" fill="#E2E8F0" font-size="14" font-family="Inter, Segoe UI, sans-serif">Google One</text>
+  <rect x="228" y="564" width="92" height="26" rx="13" fill="#163A2A"/>
+  <text x="247" y="581" fill="#86EFAC" font-size="12" font-family="Inter, Segoe UI, sans-serif">Tomorrow</text>
+  <text x="534" y="582" fill="#94A3B8" font-size="13" font-family="Inter, Segoe UI, sans-serif">19 Feb • 45,000 VND</text>
+
+  <rect x="730" y="372" width="800" height="254" rx="16" fill="#101B2F" stroke="#26364D"/>
+  <text x="755" y="406" fill="#F1F5F9" font-size="20" font-family="Inter, Segoe UI, sans-serif" font-weight="700">Monthly Cost Trend</text>
+  <text x="755" y="429" fill="#94A3B8" font-size="13" font-family="Inter, Segoe UI, sans-serif">Last 6 months</text>
+
+  <line x1="760" y1="586" x2="1490" y2="586" stroke="#2A3A53"/>
+  <line x1="760" y1="550" x2="1490" y2="550" stroke="#1B2A42"/>
+  <line x1="760" y1="514" x2="1490" y2="514" stroke="#1B2A42"/>
+  <line x1="760" y1="478" x2="1490" y2="478" stroke="#1B2A42"/>
+  <line x1="760" y1="442" x2="1490" y2="442" stroke="#1B2A42"/>
+  <line x1="760" y1="406" x2="1490" y2="406" stroke="#1B2A42"/>
+
+  <polyline points="780,560 900,536 1020,548 1140,504 1260,520 1380,468 1480,484" fill="none" stroke="#22D3EE" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="780,574 900,560 1020,568 1140,532 1260,542 1380,514 1480,526" fill="none" stroke="#4ADE80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+
+  <circle cx="1380" cy="468" r="6" fill="#22D3EE"/>
+  <circle cx="1380" cy="514" r="5" fill="#4ADE80"/>
+  <rect x="1310" y="440" width="170" height="62" rx="10" fill="#0B1528" stroke="#2A3A53"/>
+  <text x="1326" y="465" fill="#CBD5E1" font-size="12" font-family="Inter, Segoe UI, sans-serif">This month</text>
+  <text x="1326" y="485" fill="#22D3EE" font-size="13" font-family="Inter, Segoe UI, sans-serif" font-weight="700">2,845,000 VND</text>
+
+  <rect x="70" y="646" width="1460" height="296" rx="16" fill="#101B2F" stroke="#26364D"/>
+  <text x="95" y="680" fill="#F1F5F9" font-size="20" font-family="Inter, Segoe UI, sans-serif" font-weight="700">Active Subscriptions</text>
+
+  <rect x="95" y="696" width="120" height="34" rx="9" fill="#1D4ED8"/>
+  <text x="131" y="718" fill="#DBEAFE" font-size="13" font-family="Inter, Segoe UI, sans-serif">All</text>
+  <rect x="224" y="696" width="142" height="34" rx="9" fill="#0B1528" stroke="#2A3A53"/>
+  <text x="255" y="718" fill="#94A3B8" font-size="13" font-family="Inter, Segoe UI, sans-serif">Overdue</text>
+  <rect x="375" y="696" width="120" height="34" rx="9" fill="#0B1528" stroke="#2A3A53"/>
+  <text x="408" y="718" fill="#94A3B8" font-size="13" font-family="Inter, Segoe UI, sans-serif">Today</text>
+
+  <rect x="95" y="750" width="1410" height="52" rx="8" fill="#0C1629"/>
+  <text x="115" y="782" fill="#E2E8F0" font-size="14" font-family="Inter, Segoe UI, sans-serif">Spotify Family</text>
+  <text x="410" y="782" fill="#CBD5E1" font-size="14" font-family="Inter, Segoe UI, sans-serif">28 Feb 2026</text>
+  <text x="620" y="782" fill="#94A3B8" font-size="14" font-family="Inter, Segoe UI, sans-serif">My cost / cycle: 59,000 VND</text>
+  <text x="905" y="782" fill="#22D3EE" font-size="14" font-family="Inter, Segoe UI, sans-serif" font-weight="700">Monthly: 59,000 VND</text>
+  <rect x="1320" y="762" width="78" height="28" rx="8" fill="#0F213A" stroke="#284361"/>
+  <text x="1343" y="780" fill="#BFDBFE" font-size="12" font-family="Inter, Segoe UI, sans-serif">Edit</text>
+  <rect x="1407" y="762" width="78" height="28" rx="8" fill="#173A2A" stroke="#276749"/>
+  <text x="1423" y="780" fill="#86EFAC" font-size="12" font-family="Inter, Segoe UI, sans-serif">Billed</text>
+
+  <rect x="95" y="810" width="1410" height="52" rx="8" fill="#0C1629"/>
+  <text x="115" y="842" fill="#E2E8F0" font-size="14" font-family="Inter, Segoe UI, sans-serif">ChatGPT Plus</text>
+  <text x="410" y="842" fill="#CBD5E1" font-size="14" font-family="Inter, Segoe UI, sans-serif">02 Mar 2026</text>
+  <text x="620" y="842" fill="#94A3B8" font-size="14" font-family="Inter, Segoe UI, sans-serif">My cost / cycle: 20 USD</text>
+  <text x="905" y="842" fill="#22D3EE" font-size="14" font-family="Inter, Segoe UI, sans-serif" font-weight="700">Monthly: 520,000 VND</text>
+  <rect x="1320" y="822" width="78" height="28" rx="8" fill="#0F213A" stroke="#284361"/>
+  <text x="1343" y="840" fill="#BFDBFE" font-size="12" font-family="Inter, Segoe UI, sans-serif">Edit</text>
+  <rect x="1407" y="822" width="78" height="28" rx="8" fill="#3A171D" stroke="#7F1D1D"/>
+  <text x="1428" y="840" fill="#FCA5A5" font-size="12" font-family="Inter, Segoe UI, sans-serif">Archive</text>
+
+  <rect x="95" y="870" width="1410" height="52" rx="8" fill="#0C1629"/>
+  <text x="115" y="902" fill="#E2E8F0" font-size="14" font-family="Inter, Segoe UI, sans-serif">YouTube Premium</text>
+  <text x="410" y="902" fill="#CBD5E1" font-size="14" font-family="Inter, Segoe UI, sans-serif">18 Mar 2026</text>
+  <text x="620" y="902" fill="#94A3B8" font-size="14" font-family="Inter, Segoe UI, sans-serif">My cost / cycle: 79,000 VND</text>
+  <text x="905" y="902" fill="#22D3EE" font-size="14" font-family="Inter, Segoe UI, sans-serif" font-weight="700">Monthly: 79,000 VND</text>
+  <rect x="1320" y="882" width="78" height="28" rx="8" fill="#0F213A" stroke="#284361"/>
+  <text x="1343" y="900" fill="#BFDBFE" font-size="12" font-family="Inter, Segoe UI, sans-serif">Edit</text>
+  <rect x="1407" y="882" width="78" height="28" rx="8" fill="#173A2A" stroke="#276749"/>
+  <text x="1423" y="900" fill="#86EFAC" font-size="12" font-family="Inter, Segoe UI, sans-serif">Billed</text>
+
+  <ellipse cx="1320" cy="965" rx="120" ry="14" fill="#22D3EE" opacity="0.18" filter="url(#soft)"/>
+</svg>
