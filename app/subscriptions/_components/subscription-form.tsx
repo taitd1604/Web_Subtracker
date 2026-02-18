@@ -53,9 +53,9 @@ function SubmitButton({ mode }: { mode: FormMode }) {
     <FormSubmitButton
       type="submit"
       className="w-full sm:w-auto"
-      pendingText={mode === "create" ? "Creating..." : "Saving..."}
+      pendingText={mode === "create" ? "Đang tạo..." : "Đang lưu..."}
     >
-      {mode === "create" ? "Create Subscription" : "Save Changes"}
+      {mode === "create" ? "Tạo đăng ký" : "Lưu thay đổi"}
     </FormSubmitButton>
   );
 }
@@ -96,18 +96,18 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
 
       <section className="clay-inset space-y-4 p-5">
         <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
-          Basic Information
+          Thông tin cơ bản
         </h3>
 
         <div className="grid gap-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">Tên dịch vụ</Label>
           <Input id="name" name="name" placeholder="Netflix" defaultValue={values.name} />
           <FieldError error={state.fieldErrors?.name} />
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="grid gap-2">
-            <Label htmlFor="totalAmount">Total Amount</Label>
+            <Label htmlFor="totalAmount">Tổng tiền</Label>
             <Input
               id="totalAmount"
               name="totalAmount"
@@ -120,7 +120,7 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="currency">Currency</Label>
+            <Label htmlFor="currency">Đơn vị tiền tệ</Label>
             <Select
               id="currency"
               name="currency"
@@ -137,20 +137,20 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
 
       <section className="clay-inset space-y-4 p-5">
         <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
-          Cost Setup
+          Thiết lập chi phí
         </h3>
 
         <div className="grid gap-2">
-          <Label htmlFor="costMode">Cost Mode</Label>
+          <Label htmlFor="costMode">Cách chia chi phí</Label>
           <Select
             id="costMode"
             name="costMode"
             defaultValue={values.costMode}
             onChange={(event) => setCostMode(event.target.value as CostMode)}
           >
-            <option value="full">Full - I pay all</option>
-            <option value="split">Split - shared with others</option>
-            <option value="fixed">Fixed - my fixed amount</option>
+            <option value="full">Toàn bộ - tôi trả hết</option>
+            <option value="split">Chia đều - có người dùng chung</option>
+            <option value="fixed">Cố định - phần tôi tự đặt</option>
           </Select>
           <FieldError error={state.fieldErrors?.costMode} />
         </div>
@@ -158,7 +158,7 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
         {costMode === "split" ? (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="grid gap-2">
-              <Label htmlFor="splitTotalUsers">Split Total Users</Label>
+              <Label htmlFor="splitTotalUsers">Tổng số người dùng chung</Label>
               <Input
                 id="splitTotalUsers"
                 name="splitTotalUsers"
@@ -170,7 +170,7 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
               <FieldError error={state.fieldErrors?.splitTotalUsers} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="myShare">My Share</Label>
+              <Label htmlFor="myShare">Số phần của tôi</Label>
               <Input
                 id="myShare"
                 name="myShare"
@@ -186,7 +186,7 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
 
         {costMode === "fixed" ? (
           <div className="grid gap-2">
-            <Label htmlFor="fixedAmount">Fixed Amount</Label>
+            <Label htmlFor="fixedAmount">Số tiền cố định của tôi</Label>
             <Input
               id="fixedAmount"
               name="fixedAmount"
@@ -202,20 +202,20 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
 
       <section className="clay-inset space-y-4 p-5">
         <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
-          Billing Schedule
+          Chu kỳ thanh toán
         </h3>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="grid gap-2">
-            <Label htmlFor="billingType">Billing Type</Label>
+            <Label htmlFor="billingType">Loại chu kỳ</Label>
             <Select id="billingType" name="billingType" defaultValue={values.billingType}>
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
+              <option value="monthly">Theo tháng</option>
+              <option value="yearly">Theo năm</option>
             </Select>
             <FieldError error={state.fieldErrors?.billingType} />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="billingInterval">Billing Interval</Label>
+            <Label htmlFor="billingInterval">Số chu kỳ lặp</Label>
             <Input
               id="billingInterval"
               name="billingInterval"
@@ -225,14 +225,14 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
               defaultValue={values.billingInterval}
             />
             <p className="text-xs text-muted-foreground">
-              Example: 2 + Monthly = billed every 2 months.
+              Ví dụ: 2 + Theo tháng = thanh toán mỗi 2 tháng.
             </p>
             <FieldError error={state.fieldErrors?.billingInterval} />
           </div>
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="nextBillingDate">Next Billing Date</Label>
+          <Label htmlFor="nextBillingDate">Ngày thanh toán kế tiếp</Label>
           <Input
             id="nextBillingDate"
             name="nextBillingDate"
@@ -245,15 +245,15 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
 
       <section className="clay-inset space-y-4 p-5">
         <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
-          Notes
+          Ghi chú
         </h3>
         <div className="grid gap-2">
-          <Label htmlFor="note">Note (optional)</Label>
+          <Label htmlFor="note">Ghi chú (không bắt buộc)</Label>
           <Textarea
             id="note"
             name="note"
             rows={4}
-            placeholder="Family plan with siblings"
+            placeholder="Ví dụ: Gói gia đình chia với anh chị em"
             defaultValue={values.note}
           />
           <FieldError error={state.fieldErrors?.note} />

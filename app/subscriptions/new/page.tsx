@@ -11,15 +11,17 @@ export default function NewSubscriptionPage() {
   return (
     <main className="container py-8 md:py-10">
       <div className="clay-panel mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight">Add Subscription</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">
+          Thêm đăng ký
+        </h1>
         <Link href="/" className={backLinkClass}>
-          Back to dashboard
+          Quay lại dashboard
         </Link>
       </div>
 
       <Card className="clay-elevated">
         <CardHeader>
-          <CardTitle className="text-xl">New subscription</CardTitle>
+          <CardTitle className="text-xl text-slate-800">Thông tin đăng ký mới</CardTitle>
         </CardHeader>
         <CardContent>
           <SubscriptionForm mode="create" formAction={createSubscriptionAction} />

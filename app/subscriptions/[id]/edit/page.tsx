@@ -34,9 +34,11 @@ export default async function EditSubscriptionPage({
   return (
     <main className="container py-8 md:py-10">
       <div className="clay-panel mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight">Edit Subscription</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">
+          Chỉnh sửa đăng ký
+        </h1>
         <Link href="/" className={backLinkClass}>
-          Back to dashboard
+          Quay lại dashboard
         </Link>
       </div>
 
@@ -48,13 +50,13 @@ export default async function EditSubscriptionPage({
           <form action={markSubscriptionBilledAction}>
             <input type="hidden" name="id" value={subscription.id} />
             <Button type="submit" variant="outline">
-              Mark as billed
+              Đã thanh toán
             </Button>
           </form>
           <form action={archiveSubscriptionAction}>
             <input type="hidden" name="id" value={subscription.id} />
             <Button type="submit" variant="destructive">
-              Archive
+              Lưu trữ
             </Button>
           </form>
         </CardContent>
@@ -62,7 +64,7 @@ export default async function EditSubscriptionPage({
 
       <Card className="clay-elevated">
         <CardHeader>
-          <CardTitle className="text-xl">Subscription details</CardTitle>
+          <CardTitle className="text-xl text-slate-800">Thông tin chi tiết</CardTitle>
         </CardHeader>
         <CardContent>
           <SubscriptionForm

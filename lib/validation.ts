@@ -5,17 +5,17 @@ import { isValidDateOnlyInput, parseDateOnlyInput } from "@/lib/date-only";
 
 const dateStringSchema = z
   .string()
-  .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format");
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Ngày phải theo định dạng YYYY-MM-DD");
 
 const moneyStringSchema = z
   .string()
   .trim()
-  .regex(/^\d+(\.\d+)?$/, "Amount must be a positive number");
+  .regex(/^\d+(\.\d+)?$/, "Số tiền phải là số dương");
 
 const subscriptionInputSchema = z
   .object({
     id: z.string().uuid().optional(),
-    name: z.string().trim().min(1, "Name is required"),
+    name: z.string().trim().min(1, "Vui lòng nhập tên dịch vụ"),
     totalAmount: moneyStringSchema,
     currency: z.enum(["VND", "USD"]),
     costMode: z.enum(["full", "split", "fixed"]),
@@ -24,9 +24,9 @@ const subscriptionInputSchema = z
     fixedAmount: z.string().trim().optional(),
     billingType: z.enum(["monthly", "yearly"]),
     billingInterval: z.coerce
-      .number({ invalid_type_error: "Billing interval must be a number" })
-      .int("Billing interval must be an integer")
-      .positive("Billing interval must be greater than 0"),
+      .number({ invalid_type_error: "Chu kỳ lặp phải là số" })
+      .int("Chu kỳ lặp phải là số nguyên")
+      .positive("Chu kỳ lặp phải lớn hơn 0"),
     nextBillingDate: dateStringSchema,
     note: z.string().trim().max(500).optional()
   })
@@ -36,7 +36,7 @@ const subscriptionInputSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["totalAmount"],
-        message: "Total amount must be greater than 0"
+        message: "Tổng tiền phải lớn hơn 0"
       });
     }
 
@@ -48,7 +48,7 @@ const subscriptionInputSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["splitTotalUsers"],
-          message: "Split total users must be a positive integer"
+          message: "Tổng số người dùng chung phải là số nguyên dương"
         });
       }
 
@@ -56,7 +56,7 @@ const subscriptionInputSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["myShare"],
-          message: "My share must be a positive integer"
+          message: "Số phần của bạn phải là số nguyên dương"
         });
       }
 
@@ -68,7 +68,7 @@ const subscriptionInputSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["myShare"],
-          message: "My share cannot be greater than split total users"
+          message: "Số phần của bạn không thể lớn hơn tổng số người dùng chung"
         });
       }
     }
@@ -79,7 +79,7 @@ const subscriptionInputSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["fixedAmount"],
-          message: "Fixed amount is required and must be numeric"
+          message: "Vui lòng nhập số tiền cố định hợp lệ"
         });
         return;
       }
@@ -89,7 +89,7 @@ const subscriptionInputSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["fixedAmount"],
-          message: "Fixed amount must be greater than 0"
+          message: "Số tiền cố định phải lớn hơn 0"
         });
       }
     }
@@ -98,7 +98,7 @@ const subscriptionInputSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["nextBillingDate"],
-        message: "Next billing date is invalid"
+        message: "Ngày thanh toán kế tiếp không hợp lệ"
       });
     }
   });

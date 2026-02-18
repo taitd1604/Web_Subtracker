@@ -24,7 +24,7 @@ export async function createSubscriptionAction(
 
   if (!parsed.success) {
     return {
-      message: "Please fix the form fields.",
+      message: "Vui lòng kiểm tra lại các trường nhập.",
       fieldErrors: parsed.error.flatten().fieldErrors
     };
   }
@@ -48,7 +48,7 @@ export async function updateSubscriptionAction(
 
   if (!parsed.success) {
     return {
-      message: "Please fix the form fields.",
+      message: "Vui lòng kiểm tra lại các trường nhập.",
       fieldErrors: parsed.error.flatten().fieldErrors
     };
   }
@@ -56,7 +56,7 @@ export async function updateSubscriptionAction(
   const idResult = idSchema.safeParse(parsed.data.id);
   if (!idResult.success) {
     return {
-      message: "Subscription id is invalid."
+      message: "Mã đăng ký không hợp lệ."
     };
   }
 

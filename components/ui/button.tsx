@@ -17,7 +17,7 @@ const buttonVariants = cva(
         ghost:
           "border-transparent bg-transparent text-foreground after:hidden hover:bg-slate-100/70",
         destructive:
-          "border-red-300/85 bg-gradient-to-b from-[#FF7A74] to-[#EE5652] text-white shadow-[0_14px_22px_rgba(241,106,102,0.34),0_1px_0_rgba(255,225,224,0.5)_inset,0_-2px_0_rgba(176,53,49,0.45)_inset] hover:brightness-[1.03]"
+          "border-red-200/90 bg-gradient-to-b from-[#FFE9E8] to-[#FECBC8] text-red-700 shadow-[8px_8px_14px_rgba(232,141,141,0.22),-5px_-5px_10px_rgba(255,244,244,0.9),1px_1px_0_rgba(255,255,255,0.72)_inset] hover:brightness-[1.02]"
       },
       size: {
         default: "h-11 px-5 py-2",

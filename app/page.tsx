@@ -1,11 +1,5 @@
 import { Prisma } from "@prisma/client";
-import {
-  AlertCircle,
-  CalendarClock,
-  Clock3,
-  Plus,
-  TrendingUp
-} from "lucide-react";
+import { AlertCircle, Clock3, Plus } from "lucide-react";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
@@ -72,11 +66,11 @@ function reminderBadgeVariant(bucket: Exclude<ReminderBucket, "none">) {
 function reminderLabel(bucket: Exclude<ReminderBucket, "none">) {
   switch (bucket) {
     case "overdue":
-      return "Overdue";
+      return "Quá hạn";
     case "today":
-      return "Due Today";
+      return "Hôm nay";
     case "tomorrow":
-      return "Due Tomorrow";
+      return "Ngày mai";
   }
 }
 
@@ -118,10 +112,21 @@ function getLogoStyle(name: string): CSSProperties {
 
 function formatBillingFrequency(type: "monthly" | "yearly", interval: number) {
   if (type === "monthly") {
-    return interval === 1 ? "Every month" : `Every ${interval} months`;
+    return interval === 1 ? "Mỗi tháng" : `Mỗi ${interval} tháng`;
   }
 
-  return interval === 1 ? "Every year" : `Every ${interval} years`;
+  return interval === 1 ? "Mỗi năm" : `Mỗi ${interval} năm`;
+}
+
+function formatCostMode(mode: "full" | "split" | "fixed") {
+  switch (mode) {
+    case "full":
+      return "toàn bộ";
+    case "split":
+      return "chia sẻ";
+    case "fixed":
+      return "cố định";
+  }
 }
 
 export default async function DashboardPage() {
@@ -193,73 +198,142 @@ export default async function DashboardPage() {
       reminderOrder.indexOf(b.reminderBucket)
   );
 
+  const subscriptionCards = enrichedSubscriptions.map((subscription) => (
+    <article key={subscription.id} className="clay-panel space-y-4 p-5">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div
+            className="clay-logo-chip flex h-12 w-12 items-center justify-center text-sm font-bold"
+            style={getLogoStyle(subscription.name)}
+            aria-hidden="true"
+          >
+            {getLogoMonogram(subscription.name)}
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-slate-800">{subscription.name}</h3>
+            <p className="text-sm text-slate-600">
+              Kỳ tới: {formatDateOnly(subscription.nextBillingDate)}
+            </p>
+          </div>
+        </div>
+        <Badge variant="outline">{subscription.currency}</Badge>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 text-sm">
+        <div className="clay-inset p-3">
+          <p className="text-slate-600">Chi phí / chu kỳ</p>
+          <p className="mt-1 font-mono text-[15px] font-semibold text-slate-800">
+            {renderAmount(subscription.myCost, subscription.currency)}
+          </p>
+        </div>
+        <div className="clay-inset p-3">
+          <p className="text-slate-600">Chi phí / tháng</p>
+          <p className="mt-1 font-mono text-[15px] font-semibold text-blue-700">
+            {renderAmount(subscription.monthlyCost, subscription.currency)}
+          </p>
+        </div>
+      </div>
+
+      <div className="clay-inset flex items-center justify-between p-3 text-xs text-slate-600">
+        <span className="inline-flex items-center gap-1">
+          <Clock3 className="h-3.5 w-3.5" />
+          {formatBillingFrequency(subscription.billingType, subscription.billingInterval)}
+        </span>
+        <span className="capitalize">Chế độ {formatCostMode(subscription.costMode)}</span>
+      </div>
+
+      {subscription.note ? (
+        <p className="rounded-xl bg-white/55 px-3 py-2 text-sm text-slate-700">
+          {subscription.note}
+        </p>
+      ) : null}
+
+      <div className="flex flex-wrap gap-2">
+        <Link href={`/subscriptions/${subscription.id}/edit`} className={ghostLinkButtonSmClass}>
+          Chỉnh sửa
+        </Link>
+        <form action={markSubscriptionBilledAction}>
+          <input type="hidden" name="id" value={subscription.id} />
+          <FormSubmitButton pendingText="Đang cập nhật..." size="sm" variant="outline">
+            Đã thanh toán
+          </FormSubmitButton>
+        </form>
+        <form action={archiveSubscriptionAction}>
+          <input type="hidden" name="id" value={subscription.id} />
+          <FormSubmitButton pendingText="Đang lưu..." size="sm" variant="destructive">
+            Lưu trữ
+          </FormSubmitButton>
+        </form>
+      </div>
+    </article>
+  ));
+
   return (
     <main className="container py-8 md:py-10">
       <header className="clay-panel mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Subtracker</h1>
-          <p className="text-sm text-muted-foreground">
-            Claymorphism dashboard cho toàn bộ đăng ký của bạn.
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-800">Subtracker</h1>
+          <p className="text-sm text-slate-600">
+            Bảng điều khiển đăng ký cá nhân theo phong cách claymorphism.
           </p>
         </div>
         <Link href="/subscriptions/new" className={primaryLinkButtonClass}>
           <Plus className="h-4 w-4" aria-hidden="true" />
-          Add Subscription
+          Thêm đăng ký
         </Link>
       </header>
 
       <section className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Card className="clay-elevated p-5">
-          <CardDescription className="text-xs uppercase tracking-wide">
-            Monthly Total
+          <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
+            Tổng chi phí tháng
           </CardDescription>
           <CardTitle className="mt-1 text-2xl text-blue-700">
             {renderAmount(monthlyTotalVnd, "VND")}
           </CardTitle>
-          <p className="mt-2 text-xs text-muted-foreground">
-            USD rate: 1 USD = {formatMoney(usdToVndRate, "VND")} VND
+          <p className="mt-2 text-xs text-slate-600">
+            Tỷ giá: 1 USD = {formatMoney(usdToVndRate, "VND")} VND
           </p>
         </Card>
         <Card className="clay-elevated p-5">
-          <CardDescription className="text-xs uppercase tracking-wide">
-            Overdue
+          <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
+            Quá hạn
           </CardDescription>
           <CardTitle className="mt-1 text-2xl text-red-700">{overdueCount}</CardTitle>
-          <p className="mt-2 text-xs text-muted-foreground">Thanh toán quá hạn</p>
+          <p className="mt-2 text-xs text-slate-600">Các khoản cần xử lý ngay</p>
         </Card>
         <Card className="clay-elevated p-5">
-          <CardDescription className="text-xs uppercase tracking-wide">
-            Due Today
+          <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
+            Đến hạn hôm nay
           </CardDescription>
           <CardTitle className="mt-1 text-2xl text-amber-700">{dueTodayCount}</CardTitle>
-          <p className="mt-2 text-xs text-muted-foreground">Cần thanh toán hôm nay</p>
+          <p className="mt-2 text-xs text-slate-600">Cần thanh toán trong ngày</p>
         </Card>
         <Card className="clay-elevated p-5">
-          <CardDescription className="text-xs uppercase tracking-wide">
-            Upcoming 7 Days
+          <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
+            7 ngày tới
           </CardDescription>
           <CardTitle className="mt-1 text-2xl text-emerald-700">{upcomingCount}</CardTitle>
-          <p className="mt-2 text-xs text-muted-foreground">Sắp đến hạn trong 7 ngày</p>
+          <p className="mt-2 text-xs text-slate-600">Chuẩn bị ngân sách sớm</p>
         </Card>
       </section>
 
       <section className="mb-6">
         <Card className="clay-elevated">
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <div>
-              <h2 className="text-xl font-semibold leading-none tracking-tight">
-                Reminders
-              </h2>
-              <CardDescription>Danh sách nhắc hạn gần nhất.</CardDescription>
-            </div>
-            <CalendarClock className="h-5 w-5 text-blue-600" />
+          <CardHeader>
+            <h2 className="text-2xl font-semibold leading-none tracking-tight text-slate-800">
+              Nhắc hạn
+            </h2>
+            <CardDescription className="text-slate-600">
+              Danh sách nhắc hạn gần nhất.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             {reminders.length === 0 ? (
-              <div className="clay-inset flex items-center justify-between gap-3 p-4 text-sm text-muted-foreground">
-                <span>Không có nhắc hạn trong overdue/today/tomorrow.</span>
+              <div className="clay-inset flex items-center justify-between gap-3 p-4 text-sm text-slate-600">
+                <span>Không có nhắc hạn trong nhóm quá hạn / hôm nay / ngày mai.</span>
                 <Link href="/subscriptions/new" className={ghostLinkButtonSmClass}>
-                  Add one
+                  Thêm đăng ký
                 </Link>
               </div>
             ) : (
@@ -278,20 +352,20 @@ export default async function DashboardPage() {
                     </div>
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <p className="font-semibold">{item.name}</p>
+                        <p className="font-semibold text-slate-800">{item.name}</p>
                         <Badge variant={reminderBadgeVariant(item.reminderBucket)}>
                           {reminderLabel(item.reminderBucket)}
                         </Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-slate-600">
                         {formatDateOnly(item.nextBillingDate)} - {renderAmount(item.myCost, item.currency)}
                       </p>
                     </div>
                   </div>
                   <form action={markSubscriptionBilledAction}>
                     <input type="hidden" name="id" value={item.id} />
-                    <FormSubmitButton pendingText="Marking..." variant="outline" size="sm">
-                      Mark as billed
+                    <FormSubmitButton pendingText="Đang cập nhật..." variant="outline" size="sm">
+                      Đã thanh toán
                     </FormSubmitButton>
                   </form>
                 </div>
@@ -303,101 +377,24 @@ export default async function DashboardPage() {
 
       <section>
         <Card className="clay-elevated">
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <div>
-              <h2 className="text-xl font-semibold leading-none tracking-tight">
-                Subscription Cards
-              </h2>
-              <CardDescription>
-                Mỗi đăng ký là một thẻ riêng có logo nhận diện.
-              </CardDescription>
-            </div>
-            <TrendingUp className="h-5 w-5 text-blue-600" />
+          <CardHeader>
+            <h2 className="text-2xl font-semibold leading-none tracking-tight text-slate-800">
+              Các gói đăng ký
+            </h2>
+            <CardDescription className="text-slate-600">
+              Mỗi đăng ký hiển thị dưới dạng thẻ riêng có nhận diện monogram.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {enrichedSubscriptions.length === 0 ? (
-              <div className="clay-inset flex items-center gap-2 p-4 text-sm text-muted-foreground">
+              <div className="clay-inset flex items-center gap-2 p-4 text-sm text-slate-600">
                 <AlertCircle className="h-4 w-4" />
-                No subscriptions yet. Add your first one to start tracking.
+                Chưa có đăng ký nào. Hãy thêm gói đầu tiên để bắt đầu theo dõi.
               </div>
+            ) : enrichedSubscriptions.length === 1 ? (
+              <div className="mx-auto max-w-xl">{subscriptionCards[0]}</div>
             ) : (
-              <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-                {enrichedSubscriptions.map((subscription) => (
-                  <article key={subscription.id} className="clay-panel space-y-4 p-5">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="clay-logo-chip flex h-12 w-12 items-center justify-center text-sm font-bold"
-                          style={getLogoStyle(subscription.name)}
-                          aria-hidden="true"
-                        >
-                          {getLogoMonogram(subscription.name)}
-                        </div>
-                        <div>
-                          <h3 className="font-semibold">{subscription.name}</h3>
-                          <p className="text-sm text-muted-foreground">
-                            Next bill: {formatDateOnly(subscription.nextBillingDate)}
-                          </p>
-                        </div>
-                      </div>
-                      <Badge variant="outline">{subscription.currency}</Badge>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3 text-sm">
-                      <div className="clay-inset p-3">
-                        <p className="text-muted-foreground">My cost / cycle</p>
-                        <p className="mt-1 font-mono text-[15px] font-semibold">
-                          {renderAmount(subscription.myCost, subscription.currency)}
-                        </p>
-                      </div>
-                      <div className="clay-inset p-3">
-                        <p className="text-muted-foreground">My monthly cost</p>
-                        <p className="mt-1 font-mono text-[15px] font-semibold text-blue-700">
-                          {renderAmount(subscription.monthlyCost, subscription.currency)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="clay-inset flex items-center justify-between p-3 text-xs text-muted-foreground">
-                      <span className="inline-flex items-center gap-1">
-                        <Clock3 className="h-3.5 w-3.5" />
-                        {formatBillingFrequency(
-                          subscription.billingType,
-                          subscription.billingInterval
-                        )}
-                      </span>
-                      <span className="capitalize">{subscription.costMode} mode</span>
-                    </div>
-
-                    {subscription.note ? (
-                      <p className="rounded-xl bg-white/50 px-3 py-2 text-sm text-slate-600">
-                        {subscription.note}
-                      </p>
-                    ) : null}
-
-                    <div className="flex flex-wrap gap-2">
-                      <Link
-                        href={`/subscriptions/${subscription.id}/edit`}
-                        className={ghostLinkButtonSmClass}
-                      >
-                        Edit
-                      </Link>
-                      <form action={markSubscriptionBilledAction}>
-                        <input type="hidden" name="id" value={subscription.id} />
-                        <FormSubmitButton pendingText="Marking..." size="sm" variant="outline">
-                          Mark billed
-                        </FormSubmitButton>
-                      </form>
-                      <form action={archiveSubscriptionAction}>
-                        <input type="hidden" name="id" value={subscription.id} />
-                        <FormSubmitButton pendingText="Archiving..." size="sm" variant="destructive">
-                          Archive
-                        </FormSubmitButton>
-                      </form>
-                    </div>
-                  </article>
-                ))}
-              </div>
+              <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">{subscriptionCards}</div>
             )}
           </CardContent>
         </Card>
