@@ -7,7 +7,6 @@ import {
   markSubscriptionBilledAction
 } from "@/app/actions/subscriptions";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -27,6 +26,12 @@ import { prisma } from "@/lib/prisma";
 import { getReminderBucket, type ReminderBucket } from "@/lib/reminder";
 
 export const dynamic = "force-dynamic";
+
+const primaryLinkButtonClass =
+  "inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-glow transition-all hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
+const ghostLinkButtonSmClass =
+  "inline-flex h-11 cursor-pointer items-center justify-center rounded-md px-4 text-sm font-medium text-foreground transition-all hover:bg-card/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 type ReminderItem = {
   id: string;
@@ -123,7 +128,7 @@ export default async function DashboardPage() {
             Personal subscription tracker with my actual monthly cost.
           </p>
         </div>
-        <Link href="/subscriptions/new" className={buttonVariants({ className: "gap-2" })}>
+        <Link href="/subscriptions/new" className={primaryLinkButtonClass}>
           <Plus className="h-4 w-4" aria-hidden="true" />
           Add Subscription
         </Link>
@@ -221,7 +226,7 @@ export default async function DashboardPage() {
                       </div>
                       <Link
                         href={`/subscriptions/${subscription.id}/edit`}
-                        className={buttonVariants({ variant: "ghost", size: "sm" })}
+                        className={ghostLinkButtonSmClass}
                       >
                         Edit
                       </Link>
