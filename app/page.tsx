@@ -15,7 +15,13 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { calculateMonthlyCost, calculateMyCost, formatMoney } from "@/lib/cost";
+import {
+  calculateMonthlyCost,
+  calculateMyCost,
+  convertToVnd,
+  formatMoney,
+  getUsdToVndRate
+} from "@/lib/cost";
 import { formatDateOnly } from "@/lib/date-only";
 import { prisma } from "@/lib/prisma";
 import { getReminderBucket, type ReminderBucket } from "@/lib/reminder";
@@ -65,10 +71,8 @@ export default async function DashboardPage() {
     orderBy: [{ nextBillingDate: "asc" }, { name: "asc" }]
   });
 
-  const monthlyTotals = {
-    VND: new Prisma.Decimal(0),
-    USD: new Prisma.Decimal(0)
-  };
+  const usdToVndRate = getUsdToVndRate();
+  let monthlyTotalVnd = new Prisma.Decimal(0);
 
   const reminders: ReminderItem[] = [];
 
@@ -77,8 +81,9 @@ export default async function DashboardPage() {
     const monthlyCost = calculateMonthlyCost(subscription);
     const reminderBucket = getReminderBucket(subscription.nextBillingDate);
 
-    monthlyTotals[subscription.currency] =
-      monthlyTotals[subscription.currency].plus(monthlyCost);
+    monthlyTotalVnd = monthlyTotalVnd.plus(
+      convertToVnd(monthlyCost, subscription.currency, usdToVndRate)
+    );
 
     if (reminderBucket !== "none") {
       reminders.push({
@@ -126,21 +131,18 @@ export default async function DashboardPage() {
         </Link>
       </header>
 
-      <section className="mb-6 grid gap-4 md:grid-cols-2">
+      <section className="mb-6">
         <Card className="glass-panel shadow-glow">
           <CardHeader>
-            <CardDescription>Monthly Total (My Cost)</CardDescription>
+            <CardDescription>
+              Monthly Total (All subscriptions converted to VND)
+            </CardDescription>
             <CardTitle className="font-mono text-3xl text-neon-cyan">
-              {renderAmount(monthlyTotals.VND, "VND")}
+              {renderAmount(monthlyTotalVnd, "VND")}
             </CardTitle>
-          </CardHeader>
-        </Card>
-        <Card className="glass-panel shadow-magenta">
-          <CardHeader>
-            <CardDescription>Monthly Total (My Cost)</CardDescription>
-            <CardTitle className="font-mono text-3xl text-fuchsia-300">
-              {renderAmount(monthlyTotals.USD, "USD")}
-            </CardTitle>
+            <p className="text-xs text-muted-foreground">
+              USD conversion rate: 1 USD = {formatMoney(usdToVndRate, "VND")} VND
+            </p>
           </CardHeader>
         </Card>
       </section>

@@ -8,7 +8,7 @@ Built with Next.js App Router, TypeScript, Tailwind, shadcn-style UI components,
 - Track subscriptions with `monthly/yearly + billingInterval`
 - Support cost modes: `full`, `split`, `fixed`
 - Calculate **my actual monthly cost** only
-- Show monthly totals separately for `VND` and `USD` (no conversion)
+- Show one monthly total in `VND` (USD subscriptions are converted to VND)
 - Reminder buckets: `overdue`, `due today`, `due tomorrow`
 - Soft-delete via `archivedAt`
 - Basic Auth protection via middleware (optional, env-based)
@@ -32,6 +32,12 @@ npm install
 
 ```bash
 cp .env.example .env
+```
+
+Set exchange rate if needed:
+
+```bash
+USD_TO_VND_RATE=26000
 ```
 
 3. Create database schema and client:

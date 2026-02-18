@@ -12,6 +12,7 @@ type CostInput = {
 
 const USD_DECIMALS = 2;
 const VND_DECIMALS = 0;
+const DEFAULT_USD_TO_VND_RATE = "26000";
 
 export function getIntervalMonths(
   billingType: BillingType,
@@ -54,4 +55,29 @@ export function formatMoney(
     minimumFractionDigits: digits,
     maximumFractionDigits: digits
   }).format(value);
+}
+
+export function getUsdToVndRate(): Prisma.Decimal {
+  const rawRate = process.env.USD_TO_VND_RATE?.trim() || DEFAULT_USD_TO_VND_RATE;
+
+  try {
+    const rate = new Prisma.Decimal(rawRate);
+    if (rate.lte(0)) {
+      return new Prisma.Decimal(DEFAULT_USD_TO_VND_RATE);
+    }
+    return rate;
+  } catch {
+    return new Prisma.Decimal(DEFAULT_USD_TO_VND_RATE);
+  }
+}
+
+export function convertToVnd(
+  amount: Prisma.Decimal,
+  currency: Currency,
+  usdToVndRate: Prisma.Decimal
+): Prisma.Decimal {
+  if (currency === "VND") {
+    return amount;
+  }
+  return amount.mul(usdToVndRate);
 }
