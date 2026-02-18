@@ -33,7 +33,7 @@ export default async function EditSubscriptionPage({
 
   return (
     <main className="container py-8 md:py-10">
-      <div className="clay-panel mb-6 flex flex-wrap items-center justify-between gap-3">
+      <div className="clay-panel clay-tone-hero mb-6 flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold tracking-tight text-slate-800">
           Chỉnh sửa đăng ký
         </h1>
@@ -42,7 +42,7 @@ export default async function EditSubscriptionPage({
         </Link>
       </div>
 
-      <Card className="clay-elevated mb-5">
+      <Card className="clay-elevated clay-tone-kpi-2 mb-5">
         <CardHeader>
           <CardTitle className="text-xl">{subscription.name}</CardTitle>
         </CardHeader>
@@ -62,7 +62,7 @@ export default async function EditSubscriptionPage({
         </CardContent>
       </Card>
 
-      <Card className="clay-elevated">
+      <Card className="clay-elevated clay-tone-subscription">
         <CardHeader>
           <CardTitle className="text-xl text-slate-800">Thông tin chi tiết</CardTitle>
         </CardHeader>

@@ -38,6 +38,10 @@ const ghostLinkButtonSmClass =
 const logoPalettes = [
   { from: "#DBEAFE", to: "#BFDBFE", text: "#1E3A8A" },
   { from: "#DCFCE7", to: "#BBF7D0", text: "#14532D" },
+  { from: "#D1FAE5", to: "#99F6E4", text: "#115E59" },
+  { from: "#E0F2FE", to: "#BAE6FD", text: "#0C4A6E" },
+  { from: "#CCFBF1", to: "#99F6E4", text: "#134E4A" },
+  { from: "#ECFEFF", to: "#A5F3FC", text: "#164E63" },
   { from: "#FCE7F3", to: "#FBCFE8", text: "#831843" },
   { from: "#FFEDD5", to: "#FED7AA", text: "#7C2D12" },
   { from: "#E0E7FF", to: "#C7D2FE", text: "#312E81" }
@@ -129,6 +133,12 @@ function formatCostMode(mode: "full" | "split" | "fixed") {
   }
 }
 
+function currencyAccentClass(currency: "VND" | "USD") {
+  return currency === "VND"
+    ? "from-blue-400/70 via-blue-300/65 to-cyan-300/60"
+    : "from-emerald-400/70 via-teal-300/65 to-cyan-300/60";
+}
+
 export default async function DashboardPage() {
   const subscriptions = await prisma.subscription.findMany({
     where: {
@@ -200,6 +210,10 @@ export default async function DashboardPage() {
 
   const subscriptionCards = enrichedSubscriptions.map((subscription) => (
     <article key={subscription.id} className="clay-panel space-y-4 p-5">
+      <div
+        className={`h-1.5 w-full rounded-full bg-gradient-to-r ${currencyAccentClass(subscription.currency)}`}
+        aria-hidden="true"
+      />
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
@@ -270,7 +284,7 @@ export default async function DashboardPage() {
 
   return (
     <main className="container py-8 md:py-10">
-      <header className="clay-panel mb-6 flex flex-wrap items-center justify-between gap-4">
+      <header className="clay-panel clay-tone-hero mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-slate-800">Subtracker</h1>
           <p className="text-sm text-slate-600">
@@ -284,7 +298,7 @@ export default async function DashboardPage() {
       </header>
 
       <section className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Card className="clay-elevated p-5">
+        <Card className="clay-elevated clay-tone-kpi-1 p-5">
           <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
             Tổng chi phí tháng
           </CardDescription>
@@ -295,21 +309,21 @@ export default async function DashboardPage() {
             Tỷ giá: 1 USD = {formatMoney(usdToVndRate, "VND")} VND
           </p>
         </Card>
-        <Card className="clay-elevated p-5">
+        <Card className="clay-elevated clay-tone-kpi-2 p-5">
           <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
             Quá hạn
           </CardDescription>
           <CardTitle className="mt-1 text-2xl text-red-700">{overdueCount}</CardTitle>
           <p className="mt-2 text-xs text-slate-600">Các khoản cần xử lý ngay</p>
         </Card>
-        <Card className="clay-elevated p-5">
+        <Card className="clay-elevated clay-tone-kpi-3 p-5">
           <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
             Đến hạn hôm nay
           </CardDescription>
           <CardTitle className="mt-1 text-2xl text-amber-700">{dueTodayCount}</CardTitle>
           <p className="mt-2 text-xs text-slate-600">Cần thanh toán trong ngày</p>
         </Card>
-        <Card className="clay-elevated p-5">
+        <Card className="clay-elevated clay-tone-kpi-4 p-5">
           <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
             7 ngày tới
           </CardDescription>
@@ -319,7 +333,7 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mb-6">
-        <Card className="clay-elevated">
+        <Card className="clay-elevated clay-tone-reminder">
           <CardHeader>
             <h2 className="text-2xl font-semibold leading-none tracking-tight text-slate-800">
               Nhắc hạn
@@ -376,7 +390,7 @@ export default async function DashboardPage() {
       </section>
 
       <section>
-        <Card className="clay-elevated">
+        <Card className="clay-elevated clay-tone-subscription">
           <CardHeader>
             <h2 className="text-2xl font-semibold leading-none tracking-tight text-slate-800">
               Các gói đăng ký

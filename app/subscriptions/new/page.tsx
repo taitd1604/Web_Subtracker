@@ -10,7 +10,7 @@ const backLinkClass =
 export default function NewSubscriptionPage() {
   return (
     <main className="container py-8 md:py-10">
-      <div className="clay-panel mb-6 flex flex-wrap items-center justify-between gap-3">
+      <div className="clay-panel clay-tone-hero mb-6 flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold tracking-tight text-slate-800">
           Thêm đăng ký
         </h1>
@@ -19,7 +19,7 @@ export default function NewSubscriptionPage() {
         </Link>
       </div>
 
-      <Card className="clay-elevated">
+      <Card className="clay-elevated clay-tone-reminder">
         <CardHeader>
           <CardTitle className="text-xl text-slate-800">Thông tin đăng ký mới</CardTitle>
         </CardHeader>

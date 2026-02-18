@@ -6,28 +6,28 @@
   --font-space-grotesk: "Plus Jakarta Sans", "Nunito", "Avenir Next", sans-serif;
   --font-jetbrains-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", "Menlo",
     "Monaco", monospace;
-  --background: 213 40% 93%;
-  --foreground: 220 32% 20%;
-  --card: 210 42% 95%;
-  --card-foreground: 220 32% 20%;
-  --primary: 221 78% 59%;
+  --background: 201 54% 94%;
+  --foreground: 216 35% 18%;
+  --card: 202 46% 96%;
+  --card-foreground: 216 35% 18%;
+  --primary: 212 84% 56%;
   --primary-foreground: 210 40% 98%;
-  --secondary: 24 88% 72%;
+  --secondary: 169 62% 74%;
   --secondary-foreground: 220 32% 20%;
-  --muted: 214 32% 88%;
-  --muted-foreground: 217 24% 34%;
-  --accent: 160 48% 64%;
+  --muted: 201 36% 87%;
+  --muted-foreground: 214 24% 33%;
+  --accent: 168 62% 68%;
   --accent-foreground: 220 32% 20%;
   --destructive: 0 76% 62%;
   --destructive-foreground: 0 0% 100%;
-  --border: 214 30% 80%;
-  --input: 214 30% 80%;
-  --ring: 221 78% 59%;
+  --border: 203 36% 80%;
+  --input: 203 36% 80%;
+  --ring: 212 84% 56%;
   --radius: 1.25rem;
   --clay-light: rgba(255, 255, 255, 0.95);
-  --clay-mid: rgba(233, 240, 249, 0.92);
-  --clay-dark-shadow: rgba(148, 163, 184, 0.36);
-  --clay-soft-shadow: rgba(172, 186, 206, 0.25);
+  --clay-mid: rgba(230, 241, 248, 0.94);
+  --clay-dark-shadow: rgba(136, 164, 190, 0.33);
+  --clay-soft-shadow: rgba(154, 186, 204, 0.24);
 }
 
 @layer base {
@@ -38,9 +38,9 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(circle at 10% 8%, rgba(125, 170, 241, 0.42), transparent 35%),
-      radial-gradient(circle at 90% 10%, rgba(255, 229, 176, 0.34), transparent 30%),
-      linear-gradient(180deg, rgba(244, 248, 255, 0.72), rgba(232, 239, 248, 0.78));
+      radial-gradient(circle at 10% 8%, rgba(123, 175, 255, 0.38), transparent 34%),
+      radial-gradient(circle at 88% 12%, rgba(117, 230, 206, 0.28), transparent 30%),
+      linear-gradient(180deg, rgba(240, 250, 255, 0.76), rgba(228, 241, 248, 0.82));
     background-attachment: fixed;
   }
 }
@@ -88,6 +88,34 @@
 
   .clay-panel {
     @apply clay-surface clay-elevated p-6 md:p-7;
+  }
+
+  .clay-tone-hero {
+    background: linear-gradient(156deg, rgba(241, 250, 255, 0.98), rgba(217, 233, 247, 0.94));
+  }
+
+  .clay-tone-kpi-1 {
+    background: linear-gradient(156deg, rgba(238, 247, 255, 0.98), rgba(218, 234, 250, 0.92));
+  }
+
+  .clay-tone-kpi-2 {
+    background: linear-gradient(156deg, rgba(243, 251, 255, 0.98), rgba(224, 240, 250, 0.92));
+  }
+
+  .clay-tone-kpi-3 {
+    background: linear-gradient(156deg, rgba(240, 255, 252, 0.98), rgba(221, 243, 237, 0.92));
+  }
+
+  .clay-tone-kpi-4 {
+    background: linear-gradient(156deg, rgba(237, 252, 247, 0.98), rgba(216, 242, 233, 0.92));
+  }
+
+  .clay-tone-reminder {
+    background: linear-gradient(156deg, rgba(242, 251, 255, 0.98), rgba(221, 237, 247, 0.93));
+  }
+
+  .clay-tone-subscription {
+    background: linear-gradient(156deg, rgba(241, 252, 250, 0.98), rgba(220, 239, 236, 0.93));
   }
 
   .clay-action-primary {
