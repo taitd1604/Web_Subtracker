@@ -15,7 +15,7 @@ import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
 const backLinkClass =
-  "inline-flex h-10 cursor-pointer items-center rounded-xl border border-slate-300 bg-slate-100/70 px-3.5 text-sm font-semibold text-slate-700 shadow-[4px_4px_10px_rgba(148,163,184,0.2),-3px_-3px_8px_rgba(255,255,255,0.85)] transition-colors hover:bg-slate-100";
+  "clay-action-soft px-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 export default async function EditSubscriptionPage({
   params
@@ -40,7 +40,7 @@ export default async function EditSubscriptionPage({
         </Link>
       </div>
 
-      <Card className="mb-5">
+      <Card className="clay-elevated mb-5">
         <CardHeader>
           <CardTitle className="text-xl">{subscription.name}</CardTitle>
         </CardHeader>
@@ -60,7 +60,7 @@ export default async function EditSubscriptionPage({
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="clay-elevated">
         <CardHeader>
           <CardTitle className="text-xl">Subscription details</CardTitle>
         </CardHeader>

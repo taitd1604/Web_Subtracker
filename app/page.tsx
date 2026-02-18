@@ -36,10 +36,10 @@ import { getReminderBucket, type ReminderBucket } from "@/lib/reminder";
 export const dynamic = "force-dynamic";
 
 const primaryLinkButtonClass =
-  "inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-blue-300/80 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[6px_6px_14px_rgba(59,130,246,0.28),-4px_-4px_12px_rgba(255,255,255,0.85)] transition-transform duration-150 hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:translate-y-px";
+  "clay-action-primary gap-2 px-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 const ghostLinkButtonSmClass =
-  "inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border border-slate-200 bg-slate-100/80 px-3.5 text-sm font-semibold text-foreground shadow-[4px_4px_10px_rgba(148,163,184,0.24),-3px_-3px_8px_rgba(255,255,255,0.9)] transition-colors hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+  "clay-action-soft px-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 const logoPalettes = [
   { from: "#DBEAFE", to: "#BFDBFE", text: "#1E3A8A" },
@@ -209,7 +209,7 @@ export default async function DashboardPage() {
       </header>
 
       <section className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Card className="p-5">
+        <Card className="clay-elevated p-5">
           <CardDescription className="text-xs uppercase tracking-wide">
             Monthly Total
           </CardDescription>
@@ -220,21 +220,21 @@ export default async function DashboardPage() {
             USD rate: 1 USD = {formatMoney(usdToVndRate, "VND")} VND
           </p>
         </Card>
-        <Card className="p-5">
+        <Card className="clay-elevated p-5">
           <CardDescription className="text-xs uppercase tracking-wide">
             Overdue
           </CardDescription>
           <CardTitle className="mt-1 text-2xl text-red-700">{overdueCount}</CardTitle>
           <p className="mt-2 text-xs text-muted-foreground">Thanh toán quá hạn</p>
         </Card>
-        <Card className="p-5">
+        <Card className="clay-elevated p-5">
           <CardDescription className="text-xs uppercase tracking-wide">
             Due Today
           </CardDescription>
           <CardTitle className="mt-1 text-2xl text-amber-700">{dueTodayCount}</CardTitle>
           <p className="mt-2 text-xs text-muted-foreground">Cần thanh toán hôm nay</p>
         </Card>
-        <Card className="p-5">
+        <Card className="clay-elevated p-5">
           <CardDescription className="text-xs uppercase tracking-wide">
             Upcoming 7 Days
           </CardDescription>
@@ -244,7 +244,7 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mb-6">
-        <Card>
+        <Card className="clay-elevated">
           <CardHeader className="flex-row items-center justify-between space-y-0">
             <div>
               <h2 className="text-xl font-semibold leading-none tracking-tight">
@@ -270,7 +270,7 @@ export default async function DashboardPage() {
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/70 text-xs font-bold"
+                      className="clay-logo-chip flex h-11 w-11 items-center justify-center text-xs font-bold"
                       style={getLogoStyle(item.name)}
                       aria-hidden="true"
                     >
@@ -302,7 +302,7 @@ export default async function DashboardPage() {
       </section>
 
       <section>
-        <Card>
+        <Card className="clay-elevated">
           <CardHeader className="flex-row items-center justify-between space-y-0">
             <div>
               <h2 className="text-xl font-semibold leading-none tracking-tight">
@@ -327,7 +327,7 @@ export default async function DashboardPage() {
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <div
-                          className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/70 text-sm font-bold"
+                          className="clay-logo-chip flex h-12 w-12 items-center justify-center text-sm font-bold"
                           style={getLogoStyle(subscription.name)}
                           aria-hidden="true"
                         >

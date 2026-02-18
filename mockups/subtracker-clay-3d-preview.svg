@@ -1,0 +1,146 @@
+<svg width="1600" height="1020" viewBox="0 0 1600 1020" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1600" y2="1020" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D6E6FB"/>
+      <stop offset="1" stop-color="#EEF3FA"/>
+    </linearGradient>
+
+    <radialGradient id="auraBlue" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(230 120) rotate(25) scale(420 280)">
+      <stop stop-color="#90B7F8" stop-opacity="0.48"/>
+      <stop offset="1" stop-color="#90B7F8" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="auraWarm" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1490 120) rotate(155) scale(360 220)">
+      <stop stop-color="#FDE8C6" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#FDE8C6" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="surface" x1="120" y1="40" x2="1520" y2="980" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EEF3FB"/>
+      <stop offset="1" stop-color="#DDE6F3"/>
+    </linearGradient>
+
+    <linearGradient id="cardTop" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F4F8FD"/>
+      <stop offset="1" stop-color="#E2EAF5"/>
+    </linearGradient>
+
+    <linearGradient id="pillGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#FFFFFF" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#DFE7F3" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="primaryBtn" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#4EA0FF"/>
+      <stop offset="1" stop-color="#2F78E8"/>
+    </linearGradient>
+
+    <linearGradient id="dangerBtn" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#FF7A74"/>
+      <stop offset="1" stop-color="#EE5652"/>
+    </linearGradient>
+
+    <filter id="dropBig" x="-30%" y="-30%" width="160%" height="180%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="18" dy="18" stdDeviation="16" flood-color="#9AAECC" flood-opacity="0.35"/>
+      <feDropShadow dx="-10" dy="-10" stdDeviation="12" flood-color="#FFFFFF" flood-opacity="0.88"/>
+    </filter>
+
+    <filter id="dropMid" x="-35%" y="-35%" width="170%" height="200%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="10" dy="10" stdDeviation="10" flood-color="#9AAECC" flood-opacity="0.32"/>
+      <feDropShadow dx="-6" dy="-6" stdDeviation="8" flood-color="#FFFFFF" flood-opacity="0.82"/>
+    </filter>
+
+    <filter id="dropSoft" x="-40%" y="-50%" width="180%" height="220%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="7" dy="7" stdDeviation="7" flood-color="#AABBD3" flood-opacity="0.35"/>
+      <feDropShadow dx="-4" dy="-4" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+
+    <filter id="inner" x="-10%" y="-10%" width="130%" height="130%" color-interpolation-filters="sRGB">
+      <feOffset dx="4" dy="4"/>
+      <feGaussianBlur stdDeviation="4" result="offset-blur"/>
+      <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+      <feFlood flood-color="#A5B5CC" flood-opacity="0.28" result="color"/>
+      <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+      <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1020" fill="url(#bgGrad)"/>
+  <rect width="1600" height="1020" fill="url(#auraBlue)"/>
+  <rect width="1600" height="1020" fill="url(#auraWarm)"/>
+
+  <rect x="54" y="30" width="1492" height="960" rx="34" fill="url(#surface)" filter="url(#dropBig)"/>
+  <rect x="72" y="48" width="1456" height="924" rx="30" stroke="#FFFFFF" stroke-opacity="0.7"/>
+
+  <text x="104" y="110" fill="#24324B" font-size="38" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Subtracker</text>
+  <text x="105" y="140" fill="#64748B" font-size="16" font-family="Avenir Next, Segoe UI, sans-serif">Claymorphism 3D Preview (before implementation)</text>
+
+  <rect x="1280" y="80" width="216" height="64" rx="20" fill="url(#primaryBtn)" filter="url(#dropMid)"/>
+  <rect x="1285" y="85" width="206" height="24" rx="12" fill="#8CC1FF" fill-opacity="0.32"/>
+  <text x="1340" y="120" fill="#F4FAFF" font-size="24" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">+ Add New</text>
+
+  <!-- Reminders Card -->
+  <rect x="96" y="180" width="1408" height="220" rx="34" fill="url(#cardTop)" filter="url(#dropBig)"/>
+  <rect x="108" y="192" width="1384" height="196" rx="28" stroke="#FFFFFF" stroke-opacity="0.7"/>
+  <text x="130" y="243" fill="#1F2E48" font-size="46" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Reminders</text>
+  <text x="132" y="276" fill="#687B96" font-size="24" font-family="Avenir Next, Segoe UI, sans-serif">Danh sách nhắc hạn gần nhất.</text>
+
+  <rect x="132" y="300" width="1336" height="72" rx="24" fill="url(#pillGrad)" filter="url(#inner)"/>
+  <text x="165" y="346" fill="#677A95" font-size="30" font-family="Avenir Next, Segoe UI, sans-serif">Không có nhắc hạn trong overdue/today/tomorrow.</text>
+
+  <rect x="1310" y="312" width="150" height="52" rx="18" fill="url(#pillGrad)" filter="url(#dropSoft)"/>
+  <text x="1351" y="345" fill="#273650" font-size="34" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Add one</text>
+
+  <!-- Subscription Section -->
+  <rect x="96" y="438" width="1408" height="510" rx="34" fill="url(#cardTop)" filter="url(#dropBig)"/>
+  <rect x="108" y="450" width="1384" height="486" rx="28" stroke="#FFFFFF" stroke-opacity="0.7"/>
+
+  <text x="130" y="500" fill="#1F2E48" font-size="46" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Subscription Cards</text>
+  <text x="132" y="535" fill="#687B96" font-size="24" font-family="Avenir Next, Segoe UI, sans-serif">Mỗi đăng ký là một thẻ riêng có logo nhận diện.</text>
+
+  <!-- subscription card 1 -->
+  <rect x="132" y="570" width="655" height="338" rx="32" fill="url(#cardTop)" filter="url(#dropBig)"/>
+  <rect x="144" y="582" width="631" height="314" rx="26" stroke="#FFFFFF" stroke-opacity="0.75"/>
+
+  <rect x="164" y="608" width="88" height="88" rx="28" fill="#F7CBE2" filter="url(#dropMid)"/>
+  <text x="185" y="666" fill="#8F1F57" font-size="46" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="800">NE</text>
+
+  <text x="278" y="647" fill="#23324B" font-size="46" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Netflix</text>
+  <text x="278" y="689" fill="#687B96" font-size="34" font-family="Avenir Next, Segoe UI, sans-serif">Next bill: 03 Apr 2026</text>
+
+  <rect x="668" y="608" width="94" height="48" rx="24" fill="url(#pillGrad)" filter="url(#dropSoft)"/>
+  <text x="694" y="640" fill="#33455F" font-size="30" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">VND</text>
+
+  <rect x="164" y="724" width="292" height="98" rx="28" fill="url(#pillGrad)" filter="url(#inner)"/>
+  <text x="185" y="772" fill="#657892" font-size="34" font-family="Avenir Next, Segoe UI, sans-serif">My cost / cycle</text>
+  <text x="186" y="806" fill="#263650" font-size="40" font-family="JetBrains Mono, monospace" font-weight="700">249,000 VND</text>
+
+  <rect x="478" y="724" width="292" height="98" rx="28" fill="url(#pillGrad)" filter="url(#inner)"/>
+  <text x="499" y="772" fill="#657892" font-size="34" font-family="Avenir Next, Segoe UI, sans-serif">My monthly cost</text>
+  <text x="500" y="806" fill="#2E74E5" font-size="40" font-family="JetBrains Mono, monospace" font-weight="700">249,000 VND</text>
+
+  <rect x="164" y="842" width="606" height="58" rx="20" fill="url(#pillGrad)" filter="url(#inner)"/>
+  <text x="193" y="879" fill="#687B96" font-size="30" font-family="Avenir Next, Segoe UI, sans-serif">Every month</text>
+  <text x="674" y="879" fill="#687B96" font-size="30" font-family="Avenir Next, Segoe UI, sans-serif">Full Mode</text>
+
+  <!-- right side: depth examples -->
+  <rect x="824" y="570" width="644" height="338" rx="32" fill="url(#cardTop)" filter="url(#dropBig)"/>
+  <rect x="836" y="582" width="620" height="314" rx="26" stroke="#FFFFFF" stroke-opacity="0.75"/>
+
+  <text x="864" y="640" fill="#25344E" font-size="40" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Depth Tuning Plan</text>
+
+  <rect x="864" y="668" width="560" height="64" rx="22" fill="url(#pillGrad)" filter="url(#inner)"/>
+  <text x="892" y="710" fill="#62758F" font-size="29" font-family="Avenir Next, Segoe UI, sans-serif">Layer 1: outer shadow + top-left highlight</text>
+
+  <rect x="864" y="746" width="560" height="64" rx="22" fill="url(#pillGrad)" filter="url(#inner)"/>
+  <text x="892" y="788" fill="#62758F" font-size="29" font-family="Avenir Next, Segoe UI, sans-serif">Layer 2: inset shadow for recessed surfaces</text>
+
+  <rect x="864" y="824" width="260" height="62" rx="22" fill="url(#primaryBtn)" filter="url(#dropMid)"/>
+  <rect x="1142" y="824" width="282" height="62" rx="22" fill="url(#dangerBtn)" filter="url(#dropMid)"/>
+  <text x="930" y="864" fill="#F4FAFF" font-size="33" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Mark billed</text>
+  <text x="1238" y="864" fill="#FFF7F7" font-size="33" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Archive</text>
+
+  <!-- floating soft blurs for 3d atmosphere -->
+  <ellipse cx="650" cy="944" rx="430" ry="30" fill="#B8C8DF" fill-opacity="0.25"/>
+  <ellipse cx="1170" cy="944" rx="360" ry="24" fill="#BAC9DE" fill-opacity="0.2"/>
+</svg>

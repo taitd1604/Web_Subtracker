@@ -94,7 +94,7 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
     <form action={action} className="space-y-5">
       {mode === "edit" && values.id ? <input type="hidden" name="id" value={values.id} /> : null}
 
-      <section className="clay-inset space-y-4 p-4">
+      <section className="clay-inset space-y-4 p-5">
         <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
           Basic Information
         </h3>
@@ -135,7 +135,7 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
         </div>
       </section>
 
-      <section className="clay-inset space-y-4 p-4">
+      <section className="clay-inset space-y-4 p-5">
         <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
           Cost Setup
         </h3>
@@ -200,7 +200,7 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
         ) : null}
       </section>
 
-      <section className="clay-inset space-y-4 p-4">
+      <section className="clay-inset space-y-4 p-5">
         <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
           Billing Schedule
         </h3>
@@ -243,7 +243,7 @@ export function SubscriptionForm({ mode, formAction, initialValues }: Props) {
         </div>
       </section>
 
-      <section className="clay-inset space-y-4 p-4">
+      <section className="clay-inset space-y-4 p-5">
         <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
           Notes
         </h3>
