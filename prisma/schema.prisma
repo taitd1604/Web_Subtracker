@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id              String      @id @default(uuid())
+  name            String
+  totalAmount     Decimal     @db.Decimal(18, 4)
+  currency        Currency
+  costMode        CostMode
+  splitTotalUsers Int?
+  myShare         Int?
+  fixedAmount     Decimal?    @db.Decimal(18, 4)
+  billingType     BillingType
+  billingInterval Int
+  nextBillingDate DateTime    @db.Date
+  note            String?
+  archivedAt      DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([archivedAt])
+  @@index([nextBillingDate])
+}
+
+enum Currency {
+  VND
+  USD
+}
+
+enum CostMode {
+  full
+  split
+  fixed
+}
+
+enum BillingType {
+  monthly
+  yearly
+}

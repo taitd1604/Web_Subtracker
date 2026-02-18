@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-space-grotesk: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular",
+    "Menlo", "Monaco", monospace;
+  --background: 228 37% 8%;
+  --foreground: 180 40% 98%;
+  --card: 228 32% 12%;
+  --card-foreground: 180 40% 98%;
+  --primary: 186 100% 50%;
+  --primary-foreground: 228 37% 8%;
+  --secondary: 312 100% 59%;
+  --secondary-foreground: 228 37% 8%;
+  --muted: 225 20% 20%;
+  --muted-foreground: 220 15% 72%;
+  --accent: 312 100% 59%;
+  --accent-foreground: 228 37% 8%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 180 40% 98%;
+  --border: 225 20% 28%;
+  --input: 225 20% 28%;
+  --ring: 186 100% 50%;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(
+        circle at top left,
+        rgba(0, 245, 255, 0.15),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at top right,
+        rgba(255, 43, 214, 0.15),
+        transparent 45%
+      );
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply border border-border/70 bg-card/50 backdrop-blur-md;
+  }
+}
