@@ -7,14 +7,14 @@ import {
   markSubscriptionBilledAction
 } from "@/app/actions/subscriptions";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle
+  CardHeader
 } from "@/components/ui/card";
+import { FormSubmitButton } from "@/components/ui/form-submit-button";
 import {
   calculateMonthlyCost,
   calculateMyCost,
@@ -123,23 +123,20 @@ export default async function DashboardPage() {
             Personal subscription tracker with my actual monthly cost.
           </p>
         </div>
-        <Link href="/subscriptions/new">
-          <Button className="gap-2">
-            <Plus className="h-4 w-4" />
-            Add Subscription
-          </Button>
+        <Link href="/subscriptions/new" className={buttonVariants({ className: "gap-2" })}>
+          <Plus className="h-4 w-4" aria-hidden="true" />
+          Add Subscription
         </Link>
       </header>
 
       <section className="mb-6">
         <Card className="glass-panel shadow-glow">
           <CardHeader>
+            <h2 className="text-xl font-semibold leading-none tracking-tight">Monthly Summary</h2>
             <CardDescription>
               Monthly Total (All subscriptions converted to VND)
             </CardDescription>
-            <CardTitle className="font-mono text-3xl text-neon-cyan">
-              {renderAmount(monthlyTotalVnd, "VND")}
-            </CardTitle>
+            <p className="font-mono text-3xl text-neon-cyan">{renderAmount(monthlyTotalVnd, "VND")}</p>
             <p className="text-xs text-muted-foreground">
               USD conversion rate: 1 USD = {formatMoney(usdToVndRate, "VND")} VND
             </p>
@@ -151,7 +148,7 @@ export default async function DashboardPage() {
         <Card className="glass-panel">
           <CardHeader className="flex-row items-center justify-between space-y-0">
             <div>
-              <CardTitle className="text-xl">Reminders</CardTitle>
+              <h2 className="text-xl font-semibold leading-none tracking-tight">Reminders</h2>
               <CardDescription>Overdue, today, and tomorrow billing alerts.</CardDescription>
             </div>
             <CalendarClock className="h-5 w-5 text-neon-cyan" />
@@ -181,9 +178,9 @@ export default async function DashboardPage() {
                   </div>
                   <form action={markSubscriptionBilledAction}>
                     <input type="hidden" name="id" value={item.id} />
-                    <Button type="submit" variant="outline" size="sm">
+                    <FormSubmitButton pendingText="Marking..." variant="outline" size="sm">
                       Mark as billed
-                    </Button>
+                    </FormSubmitButton>
                   </form>
                 </div>
               ))
@@ -196,7 +193,9 @@ export default async function DashboardPage() {
         <Card className="glass-panel">
           <CardHeader className="flex-row items-center justify-between space-y-0">
             <div>
-              <CardTitle className="text-xl">Active Subscriptions</CardTitle>
+              <h2 className="text-xl font-semibold leading-none tracking-tight">
+                Active Subscriptions
+              </h2>
               <CardDescription>{enrichedSubscriptions.length} active records</CardDescription>
             </div>
           </CardHeader>
@@ -211,7 +210,7 @@ export default async function DashboardPage() {
                 {enrichedSubscriptions.map((subscription) => (
                   <article
                     key={subscription.id}
-                    className="rounded-md border border-border/70 bg-card/40 p-4 transition hover:border-neon-cyan/60 hover:shadow-glow"
+                    className="rounded-md border border-border/70 bg-card/40 p-4 transition focus-within:border-neon-cyan/60 focus-within:shadow-glow"
                   >
                     <div className="mb-3 flex items-start justify-between gap-3">
                       <div>
@@ -220,10 +219,11 @@ export default async function DashboardPage() {
                           Next bill: {formatDateOnly(subscription.nextBillingDate)}
                         </p>
                       </div>
-                      <Link href={`/subscriptions/${subscription.id}/edit`}>
-                        <Button variant="ghost" size="sm">
-                          Edit
-                        </Button>
+                      <Link
+                        href={`/subscriptions/${subscription.id}/edit`}
+                        className={buttonVariants({ variant: "ghost", size: "sm" })}
+                      >
+                        Edit
                       </Link>
                     </div>
 
@@ -245,15 +245,15 @@ export default async function DashboardPage() {
                     <div className="flex gap-2">
                       <form action={markSubscriptionBilledAction}>
                         <input type="hidden" name="id" value={subscription.id} />
-                        <Button type="submit" size="sm" variant="outline">
+                        <FormSubmitButton pendingText="Marking..." size="sm" variant="outline">
                           Mark billed
-                        </Button>
+                        </FormSubmitButton>
                       </form>
                       <form action={archiveSubscriptionAction}>
                         <input type="hidden" name="id" value={subscription.id} />
-                        <Button type="submit" size="sm" variant="destructive">
+                        <FormSubmitButton pendingText="Archiving..." size="sm" variant="destructive">
                           Archive
-                        </Button>
+                        </FormSubmitButton>
                       </form>
                     </div>
                   </article>
