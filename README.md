@@ -53,6 +53,52 @@ npx prisma generate
 npm run dev
 ```
 
+## PR Review Workflow (No Need to Wait for Production Deploy)
+
+This repo now includes:
+
+- PR CI workflow: `.github/workflows/pr-ci.yml`
+  - Runs on every PR to `main`
+  - Checks: `lint`, `test --if-present`, `build`
+- Vercel Preview workflow: `.github/workflows/vercel-preview.yml`
+  - Deploys a preview build for each PR
+  - Updates/creates a PR comment with preview URL
+- PR template: `.github/pull_request_template.md`
+  - Forces a consistent reviewer checklist
+
+### One-time setup
+
+1. Connect this GitHub repository to Vercel project.
+2. In GitHub repository settings, add these Actions secrets:
+   - `VERCEL_TOKEN`
+   - `VERCEL_ORG_ID`
+   - `VERCEL_PROJECT_ID`
+3. Ensure environment variables are set in Vercel (Preview + Production):
+   - `DATABASE_URL`
+   - `BASIC_AUTH_USERNAME`
+   - `BASIC_AUTH_PASSWORD`
+
+### Branch protection (required)
+
+In GitHub `Settings -> Branches -> Branch protection rules` for `main`:
+
+1. Require a pull request before merging.
+2. Require approvals (recommended: at least 1).
+3. Require status checks to pass before merging:
+   - `PR CI / quality`
+   - `Vercel Preview / deploy-preview`
+
+### Daily flow
+
+1. Create branch and push changes.
+2. Open PR to `main`.
+3. Wait for:
+   - CI checks to pass.
+   - Preview comment from Vercel workflow.
+4. Review directly on preview URL.
+5. Merge PR only when checks + review checklist are complete.
+6. Production deploy happens after merge (not before review).
+
 ## Data Model
 
 Main model: `Subscription` in `prisma/schema.prisma`.
