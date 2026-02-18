@@ -35,16 +35,39 @@ const primaryLinkButtonClass =
 const ghostLinkButtonSmClass =
   "clay-action-soft px-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
-const logoPalettes = [
-  { from: "#DBEAFE", to: "#BFDBFE", text: "#1E3A8A" },
-  { from: "#DCFCE7", to: "#BBF7D0", text: "#14532D" },
-  { from: "#D1FAE5", to: "#99F6E4", text: "#115E59" },
-  { from: "#E0F2FE", to: "#BAE6FD", text: "#0C4A6E" },
-  { from: "#CCFBF1", to: "#99F6E4", text: "#134E4A" },
-  { from: "#ECFEFF", to: "#A5F3FC", text: "#164E63" },
-  { from: "#FCE7F3", to: "#FBCFE8", text: "#831843" },
-  { from: "#FFEDD5", to: "#FED7AA", text: "#7C2D12" },
-  { from: "#E0E7FF", to: "#C7D2FE", text: "#312E81" }
+type LogoPalette = {
+  from: string;
+  to: string;
+  text: string;
+};
+
+type CardTone = {
+  panelClass: string;
+  stripeClass: string;
+  logo: LogoPalette;
+};
+
+const fallbackCardTones: CardTone[] = [
+  {
+    panelClass: "clay-card-tone-sky",
+    stripeClass: "clay-card-stripe-sky",
+    logo: { from: "#DBEAFE", to: "#BFDBFE", text: "#1E3A8A" }
+  },
+  {
+    panelClass: "clay-card-tone-mint",
+    stripeClass: "clay-card-stripe-mint",
+    logo: { from: "#D1FAE5", to: "#99F6E4", text: "#115E59" }
+  },
+  {
+    panelClass: "clay-card-tone-violet",
+    stripeClass: "clay-card-stripe-violet",
+    logo: { from: "#EDE9FE", to: "#DDD6FE", text: "#5B21B6" }
+  },
+  {
+    panelClass: "clay-card-tone-peach",
+    stripeClass: "clay-card-stripe-peach",
+    logo: { from: "#FFEDD5", to: "#FED7AA", text: "#7C2D12" }
+  }
 ];
 
 type ReminderItem = {
@@ -99,14 +122,55 @@ function getLogoMonogram(name: string) {
   return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
 }
 
-function getLogoStyle(name: string): CSSProperties {
+function getNameHash(value: string) {
   let hash = 0;
-  for (const char of name) {
+  for (const char of value) {
     hash = (hash << 5) - hash + char.charCodeAt(0);
     hash |= 0;
   }
+  return Math.abs(hash);
+}
 
-  const palette = logoPalettes[Math.abs(hash) % logoPalettes.length];
+function getCardTone(name: string): CardTone {
+  const normalizedName = name.trim().toLowerCase();
+
+  if (normalizedName.includes("youtube")) {
+    return {
+      panelClass: "clay-card-tone-youtube",
+      stripeClass: "clay-card-stripe-youtube",
+      logo: { from: "#FEE2E2", to: "#FCA5A5", text: "#991B1B" }
+    };
+  }
+
+  if (normalizedName.includes("spotify")) {
+    return {
+      panelClass: "clay-card-tone-spotify",
+      stripeClass: "clay-card-stripe-spotify",
+      logo: { from: "#DCFCE7", to: "#86EFAC", text: "#166534" }
+    };
+  }
+
+  if (normalizedName.includes("netflix")) {
+    return {
+      panelClass: "clay-card-tone-netflix",
+      stripeClass: "clay-card-stripe-netflix",
+      logo: { from: "#FFE4E6", to: "#FDA4AF", text: "#9F1239" }
+    };
+  }
+
+  if (normalizedName.includes("chatgpt")) {
+    return {
+      panelClass: "clay-card-tone-chatgpt",
+      stripeClass: "clay-card-stripe-chatgpt",
+      logo: { from: "#D1FAE5", to: "#A7F3D0", text: "#065F46" }
+    };
+  }
+
+  return fallbackCardTones[getNameHash(normalizedName) % fallbackCardTones.length];
+}
+
+function getLogoStyle(name: string): CSSProperties {
+  const palette = getCardTone(name).logo;
 
   return {
     background: `linear-gradient(145deg, ${palette.from}, ${palette.to})`,
@@ -131,12 +195,6 @@ function formatCostMode(mode: "full" | "split" | "fixed") {
     case "fixed":
       return "cố định";
   }
-}
-
-function currencyAccentClass(currency: "VND" | "USD") {
-  return currency === "VND"
-    ? "from-blue-400/70 via-blue-300/65 to-cyan-300/60"
-    : "from-emerald-400/70 via-teal-300/65 to-cyan-300/60";
 }
 
 export default async function DashboardPage() {
@@ -208,12 +266,18 @@ export default async function DashboardPage() {
       reminderOrder.indexOf(b.reminderBucket)
   );
 
-  const subscriptionCards = enrichedSubscriptions.map((subscription) => (
-    <article key={subscription.id} className="clay-panel space-y-4 p-5">
-      <div
-        className={`h-1.5 w-full rounded-full bg-gradient-to-r ${currencyAccentClass(subscription.currency)}`}
-        aria-hidden="true"
-      />
+  const subscriptionCards = enrichedSubscriptions.map((subscription) => {
+    const cardTone = getCardTone(subscription.name);
+
+    return (
+      <article
+        key={subscription.id}
+        className={`clay-panel ${cardTone.panelClass} space-y-4 p-5`}
+      >
+        <div
+          className={`h-1.5 w-full rounded-full ${cardTone.stripeClass}`}
+          aria-hidden="true"
+        />
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
@@ -279,8 +343,9 @@ export default async function DashboardPage() {
           </FormSubmitButton>
         </form>
       </div>
-    </article>
-  ));
+      </article>
+    );
+  });
 
   return (
     <main className="container py-8 md:py-10">
