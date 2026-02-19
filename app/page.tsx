@@ -101,6 +101,32 @@ function reminderLabel(bucket: Exclude<ReminderBucket, "none">) {
   }
 }
 
+function subscriptionReminderBadgeVariant(bucket: ReminderBucket) {
+  switch (bucket) {
+    case "overdue":
+      return "destructive" as const;
+    case "today":
+      return "warning" as const;
+    case "tomorrow":
+      return "success" as const;
+    case "none":
+      return "outline" as const;
+  }
+}
+
+function subscriptionReminderLabel(bucket: ReminderBucket) {
+  switch (bucket) {
+    case "overdue":
+      return "Quá hạn";
+    case "today":
+      return "Hôm nay";
+    case "tomorrow":
+      return "Ngày mai";
+    case "none":
+      return "Ổn định";
+  }
+}
+
 function renderAmount(amount: Prisma.Decimal, currency: "VND" | "USD") {
   return `${formatMoney(amount, currency)} ${currency}`;
 }
@@ -187,14 +213,21 @@ function formatBillingFrequency(type: "monthly" | "yearly", interval: number) {
 }
 
 function formatCostMode(mode: "full" | "split" | "fixed") {
-  switch (mode) {
-    case "full":
-      return "toàn bộ";
-    case "split":
-      return "chia sẻ";
-    case "fixed":
-      return "cố định";
+  return mode === "split" ? "Family" : "Cá nhân";
+}
+
+function formatNextBillingHint(nextBillingDate: Date) {
+  const diffInDays = dateOnlyDiffFromToday(nextBillingDate);
+
+  if (diffInDays < 0) {
+    return `trễ ${Math.abs(diffInDays)} ngày`;
   }
+
+  if (diffInDays === 0) {
+    return "hôm nay";
+  }
+
+  return `còn ${diffInDays} ngày`;
 }
 
 export default async function DashboardPage() {
@@ -211,7 +244,6 @@ export default async function DashboardPage() {
   const reminders: ReminderItem[] = [];
   let overdueCount = 0;
   let dueTodayCount = 0;
-  let upcomingCount = 0;
 
   const enrichedSubscriptions = subscriptions.map((subscription) => {
     const myCost = calculateMyCost(subscription);
@@ -241,16 +273,11 @@ export default async function DashboardPage() {
       dueTodayCount += 1;
     }
 
-    const diffInDays = dateOnlyDiffFromToday(subscription.nextBillingDate);
-
-    if (diffInDays >= 0 && diffInDays <= 7) {
-      upcomingCount += 1;
-    }
-
     return {
       ...subscription,
       myCost,
-      monthlyCost
+      monthlyCost,
+      reminderBucket
     };
   });
 
@@ -278,123 +305,111 @@ export default async function DashboardPage() {
           className={`h-1.5 w-full rounded-full ${cardTone.stripeClass}`}
           aria-hidden="true"
         />
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div
-            className="clay-logo-chip flex h-12 w-12 items-center justify-center text-sm font-bold"
-            style={getLogoStyle(subscription.name)}
-            aria-hidden="true"
-          >
-            {getLogoMonogram(subscription.name)}
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div
+              className="clay-logo-chip flex h-12 w-12 items-center justify-center text-sm font-bold"
+              style={getLogoStyle(subscription.name)}
+              aria-hidden="true"
+            >
+              {getLogoMonogram(subscription.name)}
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-800">{subscription.name}</h3>
+              <p className="text-sm text-slate-600">
+                {formatDateOnly(subscription.nextBillingDate)} ({formatNextBillingHint(subscription.nextBillingDate)})
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-base font-semibold text-slate-800">{subscription.name}</h3>
-            <p className="text-sm text-slate-600">
-              Kỳ tới: {formatDateOnly(subscription.nextBillingDate)}
-            </p>
+          <div className="inline-flex items-center gap-2">
+            <span className="text-xs font-medium text-slate-500">Nhắc hạn</span>
+            <Badge variant={subscriptionReminderBadgeVariant(subscription.reminderBucket)}>
+              {subscriptionReminderLabel(subscription.reminderBucket)}
+            </Badge>
           </div>
         </div>
-        <Badge variant="outline">{subscription.currency}</Badge>
-      </div>
 
-      <div className="grid grid-cols-2 gap-3 text-sm">
-        <div className="clay-inset p-3">
-          <p className="text-slate-600">Chi phí / chu kỳ</p>
-          <p className="mt-1 font-mono text-[15px] font-semibold text-slate-800">
-            {renderAmount(subscription.myCost, subscription.currency)}
-          </p>
-        </div>
         <div className="clay-inset p-3">
           <p className="text-slate-600">Chi phí / tháng</p>
-          <p className="mt-1 font-mono text-[15px] font-semibold text-blue-700">
+          <p className="mt-1 font-mono text-[17px] font-semibold text-blue-700">
             {renderAmount(subscription.monthlyCost, subscription.currency)}
           </p>
         </div>
-      </div>
 
-      <div className="clay-inset flex items-center justify-between p-3 text-xs text-slate-600">
-        <span className="inline-flex items-center gap-1">
-          <Clock3 className="h-3.5 w-3.5" />
-          {formatBillingFrequency(subscription.billingType, subscription.billingInterval)}
-        </span>
-        <span className="capitalize">Chế độ {formatCostMode(subscription.costMode)}</span>
-      </div>
+        <div className="grid gap-3 text-xs text-slate-600 sm:grid-cols-2">
+          <div className="clay-inset flex items-center justify-between p-3">
+            <span className="inline-flex items-center gap-1">
+              <Clock3 className="h-3.5 w-3.5" />
+              Chu kỳ
+            </span>
+            <span>{formatBillingFrequency(subscription.billingType, subscription.billingInterval)}</span>
+          </div>
+          <div className="clay-inset flex items-center justify-between p-3">
+            <span>Chế độ</span>
+            <span className="font-semibold text-slate-700">{formatCostMode(subscription.costMode)}</span>
+          </div>
+        </div>
 
-      {subscription.note ? (
-        <p className="rounded-xl bg-white/55 px-3 py-2 text-sm text-slate-700">
-          {subscription.note}
-        </p>
-      ) : null}
-
-      <div className="flex flex-wrap gap-2">
-        <Link href={`/subscriptions/${subscription.id}/edit`} className={ghostLinkButtonSmClass}>
-          Chỉnh sửa
-        </Link>
-        <form action={markSubscriptionBilledAction}>
-          <input type="hidden" name="id" value={subscription.id} />
-          <FormSubmitButton pendingText="Đang cập nhật..." size="sm" variant="outline">
-            Đã thanh toán
-          </FormSubmitButton>
-        </form>
-        <form action={archiveSubscriptionAction}>
-          <input type="hidden" name="id" value={subscription.id} />
-          <FormSubmitButton pendingText="Đang lưu..." size="sm" variant="destructive">
-            Lưu trữ
-          </FormSubmitButton>
-        </form>
-      </div>
+        <div className="flex flex-wrap gap-2">
+          <Link href={`/subscriptions/${subscription.id}/edit`} className={ghostLinkButtonSmClass}>
+            Chỉnh sửa
+          </Link>
+          <form action={markSubscriptionBilledAction}>
+            <input type="hidden" name="id" value={subscription.id} />
+            <FormSubmitButton pendingText="Đang cập nhật..." size="sm" variant="outline">
+              Đã thanh toán
+            </FormSubmitButton>
+          </form>
+          <form action={archiveSubscriptionAction}>
+            <input type="hidden" name="id" value={subscription.id} />
+            <FormSubmitButton pendingText="Đang lưu..." size="sm" variant="destructive">
+              Lưu trữ
+            </FormSubmitButton>
+          </form>
+        </div>
       </article>
     );
   });
 
   return (
     <main className="container py-8 md:py-10">
-      <header className="clay-panel clay-tone-hero mb-6 flex flex-wrap items-center justify-between gap-4">
+      <header className="clay-panel clay-tone-hero mb-6">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-slate-800">Subtracker</h1>
           <p className="text-sm text-slate-600">
             Bảng điều khiển đăng ký cá nhân theo phong cách claymorphism.
           </p>
         </div>
-        <Link href="/subscriptions/new" className={primaryLinkButtonClass}>
-          <Plus className="h-4 w-4" aria-hidden="true" />
-          Thêm đăng ký
-        </Link>
       </header>
 
-      <section className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Card className="clay-elevated clay-tone-kpi-1 p-5">
-          <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
+      <section className="mb-6 space-y-4">
+        <Card className="clay-elevated clay-tone-kpi-1 p-6 md:p-7">
+          <CardDescription className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-600">
             Tổng chi phí tháng
           </CardDescription>
-          <CardTitle className="mt-1 text-2xl text-blue-700">
+          <CardTitle className="mt-2 text-4xl text-blue-700 md:text-5xl">
             {renderAmount(monthlyTotalVnd, "VND")}
           </CardTitle>
-          <p className="mt-2 text-xs text-slate-600">
+          <p className="mt-3 text-sm text-slate-600">
             Tỷ giá: 1 USD = {formatMoney(usdToVndRate, "VND")} VND
           </p>
         </Card>
-        <Card className="clay-elevated clay-tone-kpi-2 p-5">
-          <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
-            Quá hạn
-          </CardDescription>
-          <CardTitle className="mt-1 text-2xl text-red-700">{overdueCount}</CardTitle>
-          <p className="mt-2 text-xs text-slate-600">Các khoản cần xử lý ngay</p>
-        </Card>
-        <Card className="clay-elevated clay-tone-kpi-3 p-5">
-          <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
-            Đến hạn hôm nay
-          </CardDescription>
-          <CardTitle className="mt-1 text-2xl text-amber-700">{dueTodayCount}</CardTitle>
-          <p className="mt-2 text-xs text-slate-600">Cần thanh toán trong ngày</p>
-        </Card>
-        <Card className="clay-elevated clay-tone-kpi-4 p-5">
-          <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
-            7 ngày tới
-          </CardDescription>
-          <CardTitle className="mt-1 text-2xl text-emerald-700">{upcomingCount}</CardTitle>
-          <p className="mt-2 text-xs text-slate-600">Chuẩn bị ngân sách sớm</p>
-        </Card>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card className="clay-elevated clay-tone-kpi-2 p-5">
+            <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
+              Quá hạn
+            </CardDescription>
+            <CardTitle className="mt-1 text-2xl text-red-700">{overdueCount}</CardTitle>
+            <p className="mt-2 text-xs text-slate-600">Các khoản cần xử lý ngay</p>
+          </Card>
+          <Card className="clay-elevated clay-tone-kpi-3 p-5">
+            <CardDescription className="text-xs font-medium uppercase tracking-wide text-slate-600">
+              Đến hạn hôm nay
+            </CardDescription>
+            <CardTitle className="mt-1 text-2xl text-amber-700">{dueTodayCount}</CardTitle>
+            <p className="mt-2 text-xs text-slate-600">Cần thanh toán trong ngày</p>
+          </Card>
+        </div>
       </section>
 
       <section className="mb-6">
@@ -456,13 +471,22 @@ export default async function DashboardPage() {
 
       <section>
         <Card className="clay-elevated clay-tone-subscription">
-          <CardHeader>
-            <h2 className="text-2xl font-semibold leading-none tracking-tight text-slate-800">
-              Các gói đăng ký
-            </h2>
-            <CardDescription className="text-slate-600">
-              Mỗi đăng ký hiển thị dưới dạng thẻ riêng có nhận diện monogram.
-            </CardDescription>
+          <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="space-y-1.5">
+              <h2 className="text-2xl font-semibold leading-none tracking-tight text-slate-800">
+                Các gói đăng ký
+              </h2>
+              <CardDescription className="text-slate-600">
+                Mỗi đăng ký hiển thị dưới dạng thẻ riêng có nhận diện monogram.
+              </CardDescription>
+            </div>
+            <Link
+              href="/subscriptions/new"
+              className={`${primaryLinkButtonClass} w-full justify-center sm:w-auto`}
+            >
+              <Plus className="h-4 w-4" aria-hidden="true" />
+              Thêm đăng ký
+            </Link>
           </CardHeader>
           <CardContent>
             {enrichedSubscriptions.length === 0 ? (

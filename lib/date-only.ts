@@ -33,7 +33,7 @@ export function formatDateOnly(date: Date): string {
 export function dateOnlyDiffFromToday(nextBillingDate: Date, now = new Date()): number {
   const target = parseDateOnlyInput(dateOnlyStringFromDb(nextBillingDate));
   const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
-  return Math.round((target.getTime() - today) / DAY_MS);
+  return Math.floor((target.getTime() - today) / DAY_MS);
 }
 
 export function addMonthsDateOnly(date: Date, monthDelta: number): Date {

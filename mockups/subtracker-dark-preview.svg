@@ -1,0 +1,121 @@
+<svg width="1600" height="1020" viewBox="0 0 1600 1020" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1020" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#020617"/>
+      <stop offset="1" stop-color="#0B1220"/>
+    </linearGradient>
+
+    <radialGradient id="auraBlue" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 120) rotate(25) scale(400 280)">
+      <stop stop-color="#1D4ED8" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#1D4ED8" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="auraMint" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1360 140) rotate(155) scale(360 250)">
+      <stop stop-color="#10B981" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#111D34"/>
+    </linearGradient>
+
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#1A263D"/>
+      <stop offset="1" stop-color="#152238"/>
+    </linearGradient>
+
+    <linearGradient id="inset" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#121E34"/>
+      <stop offset="1" stop-color="#0F1B2E"/>
+    </linearGradient>
+
+    <linearGradient id="btnPrimary" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#4EA2FF"/>
+      <stop offset="1" stop-color="#2D76E7"/>
+    </linearGradient>
+
+    <linearGradient id="ytCard" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#3A1D28"/>
+      <stop offset="1" stop-color="#2D1620"/>
+    </linearGradient>
+
+    <linearGradient id="spCard" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#123126"/>
+      <stop offset="1" stop-color="#0D261D"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.38"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#334155" flood-opacity="0.22"/>
+    </filter>
+
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1020" fill="url(#bg)"/>
+  <rect width="1600" height="1020" fill="url(#auraBlue)"/>
+  <rect width="1600" height="1020" fill="url(#auraMint)"/>
+
+  <rect x="46" y="28" width="1508" height="962" rx="30" fill="#0A1222" fill-opacity="0.82" stroke="#1E2D45"/>
+
+  <rect x="88" y="64" width="1424" height="92" rx="24" fill="url(#panel)" stroke="#27354D" filter="url(#shadow)"/>
+  <text x="128" y="118" fill="#F1F5F9" font-size="44" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Subtracker</text>
+  <text x="129" y="144" fill="#94A3B8" font-size="18" font-family="Avenir Next, Segoe UI, sans-serif">Dark mode concept • data-focused + brand cards</text>
+  <rect x="1282" y="86" width="204" height="50" rx="14" fill="url(#btnPrimary)" filter="url(#soft)"/>
+  <text x="1340" y="118" fill="#F8FBFF" font-size="20" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">+ Thêm gói</text>
+
+  <rect x="88" y="180" width="340" height="118" rx="20" fill="url(#card)" stroke="#2A3A57" filter="url(#shadow)"/>
+  <text x="114" y="214" fill="#94A3B8" font-size="15" font-family="Avenir Next, Segoe UI, sans-serif">Tổng chi phí tháng</text>
+  <text x="114" y="260" fill="#60A5FA" font-size="38" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">2,845,000 VND</text>
+
+  <rect x="446" y="180" width="340" height="118" rx="20" fill="url(#card)" stroke="#2A3A57" filter="url(#shadow)"/>
+  <text x="472" y="214" fill="#94A3B8" font-size="15" font-family="Avenir Next, Segoe UI, sans-serif">Quá hạn</text>
+  <text x="472" y="260" fill="#F87171" font-size="38" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">2</text>
+
+  <rect x="804" y="180" width="340" height="118" rx="20" fill="url(#card)" stroke="#2A3A57" filter="url(#shadow)"/>
+  <text x="830" y="214" fill="#94A3B8" font-size="15" font-family="Avenir Next, Segoe UI, sans-serif">Đến hạn hôm nay</text>
+  <text x="830" y="260" fill="#FBBF24" font-size="38" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">1</text>
+
+  <rect x="1162" y="180" width="350" height="118" rx="20" fill="url(#card)" stroke="#2A3A57" filter="url(#shadow)"/>
+  <text x="1188" y="214" fill="#94A3B8" font-size="15" font-family="Avenir Next, Segoe UI, sans-serif">7 ngày tới</text>
+  <text x="1188" y="260" fill="#34D399" font-size="38" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">5</text>
+
+  <rect x="88" y="326" width="1424" height="186" rx="26" fill="url(#panel)" stroke="#2A3A57" filter="url(#shadow)"/>
+  <text x="118" y="376" fill="#E2E8F0" font-size="36" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Nhắc hạn</text>
+  <text x="120" y="404" fill="#94A3B8" font-size="18" font-family="Avenir Next, Segoe UI, sans-serif">Danh sách nhắc hạn gần nhất.</text>
+  <rect x="118" y="426" width="1364" height="62" rx="16" fill="url(#inset)" stroke="#2A3A57"/>
+  <text x="142" y="464" fill="#94A3B8" font-size="24" font-family="Avenir Next, Segoe UI, sans-serif">Không có nhắc hạn trong overdue / hôm nay / ngày mai.</text>
+
+  <rect x="88" y="540" width="1424" height="438" rx="28" fill="url(#panel)" stroke="#2A3A57" filter="url(#shadow)"/>
+  <text x="118" y="594" fill="#E2E8F0" font-size="38" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Các gói đăng ký</text>
+  <text x="120" y="624" fill="#94A3B8" font-size="18" font-family="Avenir Next, Segoe UI, sans-serif">Card màu theo từng dịch vụ để tách lớp rõ hơn.</text>
+
+  <rect x="118" y="654" width="678" height="292" rx="24" fill="url(#ytCard)" stroke="#6B1F2D" filter="url(#shadow)"/>
+  <rect x="142" y="676" width="630" height="8" rx="4" fill="url(#btnPrimary)"/>
+  <rect x="144" y="710" width="74" height="74" rx="20" fill="#FCA5A5"/>
+  <text x="166" y="756" fill="#7F1D1D" font-size="34" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="800">YP</text>
+  <text x="236" y="742" fill="#F8FAFC" font-size="42" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Youtube Premium</text>
+  <text x="236" y="775" fill="#CBD5E1" font-size="26" font-family="Avenir Next, Segoe UI, sans-serif">Kỳ tới: 19 Feb 2026</text>
+  <rect x="144" y="804" width="302" height="82" rx="20" fill="url(#inset)" stroke="#2A3A57"/>
+  <text x="164" y="839" fill="#94A3B8" font-size="17" font-family="Avenir Next, Segoe UI, sans-serif">Chi phí / chu kỳ</text>
+  <text x="164" y="869" fill="#F1F5F9" font-size="34" font-family="JetBrains Mono, monospace" font-weight="700">60,000 VND</text>
+  <rect x="470" y="804" width="302" height="82" rx="20" fill="url(#inset)" stroke="#2A3A57"/>
+  <text x="490" y="839" fill="#94A3B8" font-size="17" font-family="Avenir Next, Segoe UI, sans-serif">Chi phí / tháng</text>
+  <text x="490" y="869" fill="#60A5FA" font-size="34" font-family="JetBrains Mono, monospace" font-weight="700">60,000 VND</text>
+
+  <rect x="804" y="654" width="678" height="292" rx="24" fill="url(#spCard)" stroke="#14532D" filter="url(#shadow)"/>
+  <rect x="828" y="676" width="630" height="8" rx="4" fill="linear-gradient(90deg,#22C55E,#34D399,#2DD4BF)"/>
+  <rect x="830" y="710" width="74" height="74" rx="20" fill="#86EFAC"/>
+  <text x="852" y="756" fill="#14532D" font-size="34" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="800">SP</text>
+  <text x="922" y="742" fill="#F8FAFC" font-size="42" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="700">Spotify Family</text>
+  <text x="922" y="775" fill="#CBD5E1" font-size="26" font-family="Avenir Next, Segoe UI, sans-serif">Kỳ tới: 28 Feb 2026</text>
+  <rect x="830" y="804" width="302" height="82" rx="20" fill="url(#inset)" stroke="#2A3A57"/>
+  <text x="850" y="839" fill="#94A3B8" font-size="17" font-family="Avenir Next, Segoe UI, sans-serif">Chi phí / chu kỳ</text>
+  <text x="850" y="869" fill="#F1F5F9" font-size="34" font-family="JetBrains Mono, monospace" font-weight="700">59,000 VND</text>
+  <rect x="1156" y="804" width="302" height="82" rx="20" fill="url(#inset)" stroke="#2A3A57"/>
+  <text x="1176" y="839" fill="#94A3B8" font-size="17" font-family="Avenir Next, Segoe UI, sans-serif">Chi phí / tháng</text>
+  <text x="1176" y="869" fill="#34D399" font-size="34" font-family="JetBrains Mono, monospace" font-weight="700">59,000 VND</text>
+</svg>
